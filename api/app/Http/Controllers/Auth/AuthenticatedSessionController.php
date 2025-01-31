@@ -22,7 +22,9 @@ class AuthenticatedSessionController extends Controller
         $token = auth()->user()
             ->createToken($request->email);
 
-        return response($token->plainTextToken,200);
+        return response([
+            "token" => $token->plainTextToken,
+        ],200);
     }
 
     /**
