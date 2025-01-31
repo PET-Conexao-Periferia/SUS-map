@@ -1,15 +1,48 @@
 <template>
-<form @submit.prevent="submit">
-  <input v-model="user.name" placeholder="Name" />
-  <br />
-  <input v-model="user.email" placeholder="Email" />
-  <br />
-  <input v-model="user.password" placeholder="Password" />
-  <br />
-  <input v-model="user.password_confirmation" placeholder="Password Confirmation" />
-  <br />
-  <button type="submit">Register</button>
-</form>
+<Form @submit.prevent="submit" class="tw-mx-12 tw-mt-24">
+  <img
+      src="~/assets/img/logo-pet-horizontal.svg"
+      alt="logo do PET - Conexão Periferia"
+      class="tw-block tw-mx-auto"
+  />
+  <p
+      class="tw-px-3 tw-mt-12 tw-mb-9"
+  >
+    Faça seu cadastro e receba notificações sobra campanhas de vacinação!
+  </p>
+
+  <Input
+      label="Nome"
+      v-model="user.name"
+      placeholder="Digite seu nome..."
+      class="tw-mx-6 tw-mb-4"
+  />
+
+  <Input
+      label="E-mail"
+      v-model="user.email"
+      placeholder="Digite seu e-mail..."
+      class="tw-mx-6 tw-mb-4"
+  />
+
+  <Input
+      label="Senha"
+      v-model="user.password"
+      placeholder="Digite sua senha..."
+      class="tw-mx-6 tw-mb-4"
+  />
+
+  <Input
+      label="Confirmar Senha"
+      v-model="user.password_confirmation"
+      placeholder="Confirme sua senha..."
+      class="tw-mx-6 tw-mb-4"
+  />
+
+  <Button type="submit" class="tw-block tw-mx-auto tw-mt-12">
+    Cadastro
+  </Button>
+</Form>
 </template>
 
 <script lang="ts">
@@ -37,16 +70,17 @@ export default defineComponent({
 
   methods: {
     async submit() {
-      this.user.register(this.$axios)
+      await this.user.register(this.$axios)
           .then((res: AxiosResponse) => {
             const token = res.data.token;
             this.$axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             localStorage.setItem('token', token);
-            this.userStore?.data.fetch();
           })
           .catch((error: AxiosError) => {
             console.log(error);
           });
+      await this.userStore?.data.fetch(this.$axios);
+      this.$router.push('/');
     }
   },
 

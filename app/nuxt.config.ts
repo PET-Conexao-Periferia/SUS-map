@@ -16,4 +16,10 @@ export default defineNuxtConfig({
             './stores/**'
         ],
     },
+    postcss: {
+        plugins: {
+            tailwindcss: {},
+            autoprefixer: {},
+        },
+    },
 });
