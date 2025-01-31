@@ -3,9 +3,9 @@ import User from "~/classes/User";
 
 export default defineStore('user', {
     state() {
-        const user: User = new User({});
+        const data: User = new User({});
         return {
-            user,
+            data,
         }
     }
 });

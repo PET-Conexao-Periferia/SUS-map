@@ -1,4 +1,4 @@
-import type {AxiosInstance} from "axios";
+import type {AxiosInstance, AxiosResponse} from "axios";
 import type {UserType} from "~/types/UserType";
 
 export default class AuthService {
@@ -7,7 +7,7 @@ export default class AuthService {
             email: user.email,
             password: user.password,
         })
-            .then((response) => {
+            .then((response: AxiosResponse) => {
                 const token = response.data.token;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 localStorage.setItem('token', token);
