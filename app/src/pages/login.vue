@@ -1,11 +1,33 @@
 <template>
-<form @submit.prevent="submit">
-  <input v-model="user.email" placeholder="Email" />
-  <br />
-  <input v-model="user.password" placeholder="Password" />
-  <br />
-  <button type="submit">Login</button>
-</form>
+<Form @submit.prevent="submit" class="tw-mt-40 tw-mx-14">
+
+  <img
+      src="~/assets/img/logo-pet-horizontal.svg"
+      alt="logo do PET - Conexão Periferia"
+      class="tw-block tw-mx-auto tw-mb-14"
+  />
+
+  <Input
+      label="E-mail"
+      v-model="user.email"
+      placeholder="Digite seu e-mail..."
+      class="tw-mb-5 tw-mx-6"
+  />
+
+  <Input
+      label="Senha"
+      v-model="user.password"
+      placeholder="Digite sua senha..."
+      class="tw-mb-14 tw-mx-6"
+  />
+
+  <Button
+      type="submit"
+      class="tw-block tw-mx-auto"
+  >
+    Login
+  </Button>
+</Form>
 </template>
 
 <script lang="ts">
