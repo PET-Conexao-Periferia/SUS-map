@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('descriptions', function (Blueprint $table) {
             $table->id();
             $table->string( 'name', 255);
-            $table->string( 'contact', 255);
+            $table->string( 'contact');
             $table->unsignedBigInteger('id_location');
             $table->unsignedBigInteger('id_openingTimes');
             $table->timestamps();
