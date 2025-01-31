@@ -14,7 +14,7 @@ class Location extends Model
 
     public function campaign()
     {
-        return $this->hasMany(Campaign::class);
+        return $this->belongsToMany(Campaign::class);
     }
 
     public function description()
@@ -24,6 +24,6 @@ class Location extends Model
 
     public function services()
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsToMany(Service::class);
     }
 }
