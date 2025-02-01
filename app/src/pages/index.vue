@@ -5,13 +5,16 @@
   <pre v-if="userStore?.data?.id">
     {{userStore.data}}
   </pre>
+  <ClientOnly>
+    <Map />
+  </ClientOnly>
 </template>
 
 <script lang="ts">
 import useUserStore from "~/stores/use-user-store";
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: 'index',
 
   data() {
     return {
@@ -21,7 +24,6 @@ export default defineComponent({
 
   mounted() {
     this.userStore = useUserStore();
-    this.userStore.data.fetch(this.$axios);
-  }
+  },
 });
 </script>

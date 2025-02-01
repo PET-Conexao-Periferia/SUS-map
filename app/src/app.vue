@@ -6,7 +6,6 @@
   </div>
 </template>
 
-
 <script lang="ts">
 export default defineComponent({
   name: 'App',
@@ -19,6 +18,6 @@ export default defineComponent({
     }
 
     this.$axios.get('/sanctum/csrf-cookie');
-  }
+  },
 });
 </script>
