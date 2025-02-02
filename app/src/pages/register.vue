@@ -14,29 +14,41 @@
   <Input
       label="Nome"
       v-model="user.name"
+      type="text"
       placeholder="Digite seu nome..."
       class="tw-mx-6 tw-mb-4"
+      :validation="validationName"
+      message-error="Nome inválido"
   />
 
   <Input
       label="E-mail"
       v-model="user.email"
+      type="email"
       placeholder="Digite seu e-mail..."
       class="tw-mx-6 tw-mb-4"
+      :validation="validationEmail"
+      message-error="E-mail inválido"
   />
 
   <Input
       label="Senha"
       v-model="user.password"
+      type="password"
       placeholder="Digite sua senha..."
       class="tw-mx-6 tw-mb-4"
+      :validation="validationPassword"
+      message-error="Senha inválida"
   />
 
   <Input
       label="Confirmar Senha"
       v-model="user.password_confirmation"
+      type="password"
       placeholder="Confirme sua senha..."
       class="tw-mx-6 tw-mb-4"
+      :validation="validationPasswordConfirmation"
+      message-error="Senhas diferentes"
   />
 
   <Button type="submit" class="tw-block tw-mx-auto tw-mt-12">
@@ -50,6 +62,7 @@ import {defineComponent} from 'vue'
 import User from '~/classes/User';
 import {type AxiosError, type AxiosResponse} from "axios";
 import useUserStore from "~/stores/use-user-store";
+import { z } from 'zod';
 
 export default defineComponent({
   name: "register",
@@ -70,17 +83,48 @@ export default defineComponent({
 
   methods: {
     async submit() {
-      await this.user.register(this.$axios)
-          .then((res: AxiosResponse) => {
+      if(
+        this.user.name &&
+        this.user.email &&
+        this.user.password &&
+        this.user.password_confirmation &&
+        this.validationName(this.user.name) &&
+        this.validationEmail(this.user.email) &&
+        this.validationPassword(this.user.password) &&
+        this.validationPasswordConfirmation(this.user.password_confirmation)
+      ) {
+        try {
+          const res = await this.user.register(this.$axios);
+          if(typeof res === 'object' && 'data' in res) {
             const token = res.data.token;
             this.$axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             localStorage.setItem('token', token);
-          })
-          .catch((error: AxiosError) => {
-            console.log(error);
-          });
-      await this.userStore?.data.fetch(this.$axios);
-      this.$router.push('/');
+
+            await this.userStore?.data.fetch(this.$axios);
+            this.$router.push('/');
+          }
+        } catch (e: AxiosResponse | AxiosError | any) {
+          console.log(e);
+        }
+      }
+    },
+    validationName(value: any) {
+      if(!value) return false;
+      return value.length > 0;
+    },
+    validationEmail(value: any) {
+      if(!value) return false;
+      const emailSchema = z.string().email();
+      return emailSchema.safeParse(value).success;
+    },
+    validationPassword(value: any) {
+      if(!value) return false;
+      const passwordSchema = z.string().min(6);
+      return passwordSchema.safeParse(value).success;
+    },
+    validationPasswordConfirmation(value: any) {
+      if(!value) return false;
+      return value === this.user.password;
     }
   },
 
