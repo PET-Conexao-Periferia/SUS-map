@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->foreignId('id_openingTimes')->constraine('opening_times')->onDelete('cascade');
+            $table->foreignId('openingTimes_id')->constrained('opening_times')->onDelete('cascade');
             $table->timestamps();
 
         });

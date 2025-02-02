@@ -19,7 +19,7 @@ class Location extends Model
 
     public function description()
     {
-        return $this->hasOne(Description::class,  'id_location');
+        return $this->hasOne(Description::class,  'location_id');
     }
 
     public function services()
