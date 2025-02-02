@@ -31,12 +31,15 @@ export default class User implements UserType, IApiModel {
                 this.sync(res.data);
             });
     }
+
     async register(axios: AxiosInstance): Promise<void | boolean | AxiosResponse> {
-        return axios.post('api/register', this as UserType) as AxiosResponse;
+        return axios.post('api/register', this as UserType) as Promise<AxiosResponse>;
     }
+
     update(): Promise<void | boolean | AxiosResponse> {
         throw new Error('Método não implementado!');
     }
+
     delete(): Promise<void | boolean | AxiosResponse> {
         throw new Error('Método não implementado!');
     }
