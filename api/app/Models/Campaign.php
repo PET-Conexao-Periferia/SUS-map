@@ -15,6 +15,6 @@ class Campaign extends Model
 
     public function location()
     {
-        return $this->belongsToMany(Location::class);
+        return $this->belongsToMany(Location::class, 'locations_campaigns', 'location_id', 'campaigns_id');
     }
 }
