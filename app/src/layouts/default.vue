@@ -4,9 +4,6 @@
     <slot />
     <AppFooter />
   </div>
-<!--  <ClientOnly>-->
-<!--    <LazyVLibras />-->
-<!--  </ClientOnly>-->
 </template>
 
 <script lang="ts">
