@@ -10,10 +10,6 @@ export default defineNuxtConfig({
     ],
     plugins: [
         '~/plugins/axios',
-        {
-            src: '~/plugins/vlibras',
-            mode: 'client',
-        }
     ],
     modules: [
         '@pinia/nuxt',
@@ -30,18 +26,13 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
-    // runtimeConfig: {
-    //     public: {
-    //         imageDomains: ['https://vlibras.gov.br', 'cdn.jsdelivr.net', 'https://www.vlibras.gov.br', 'https://vlibras.gov.br/app'],
-    //     },
-    // },
     app: {
         head: {
             script: [
-                // {
-                //     src: "https://vlibras.gov.br/app/vlibras-plugin.js",
-                //     tagPosition: 'bodyOpen',
-                // },
+                {
+                    src: import.meta.env.VITE_API_BASE_URL + '/vlibras-plugin.js',
+                    tagPosition: 'bodyClose',
+                }
             ],
             htmlAttrs: {
                 lang: 'pt-BR',
