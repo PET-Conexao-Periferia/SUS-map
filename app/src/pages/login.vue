@@ -34,9 +34,6 @@
     Login
   </Button>
 </Form>
-  <pre>
-    {{user}}
-  </pre>
 </template>
 
 <script lang="ts">
