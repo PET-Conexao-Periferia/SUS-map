@@ -24,4 +24,9 @@ class Description extends Model
     {
         return $this->hasOne(OpeningTimes::class, 'id_openingTimes');
     }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class,  'description_id');
+    }
 }
