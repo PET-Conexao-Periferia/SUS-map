@@ -14,6 +14,7 @@ class LocationController extends Controller
      */
     public function index()
     {
+        //logica será bruscamente alterada!
         return response(Location::paginate(), 200);
     }
 
@@ -39,6 +40,9 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
+        $location->load('campaigns', 'description', 'services');
+        $location->description()->with('openingTimes');
+        $location->services()->with('openingTimes');
         response($location, 200);
     }
 
