@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('opening_times', function (Blueprint $table) {
             $table->id();
-            $table->string( 'day', 45);
+            $table->enum( 'day', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
             $table->dateTime( 'startTime');
             $table->dateTime( 'endTime');
             $table->timestamps();

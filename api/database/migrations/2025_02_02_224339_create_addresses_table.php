@@ -15,9 +15,9 @@ return new class extends Migration
             $table->foreignId('description_id')->references('location_id')->on('descriptions')->onDelete('cascade')->primary();
             $table->string('street');
             $table->integer('number');
-            $table->string('neighborhood');
-            $table->string('cep');
-            $table->string('reference');
+            $table->string('district');
+            $table->string('cep', 9);
+            $table->string('reference', 400);
             $table->timestamps();
         });
     }

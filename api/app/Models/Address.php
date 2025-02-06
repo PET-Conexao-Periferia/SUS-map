@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Address extends Model{
     protected $primaryKey = 'description_id';
@@ -11,12 +12,12 @@ class Address extends Model{
     protected $fillable = [
         'street',
         'number',
-        'neighborhood',
+        'district',
         'cep',
         'reference',
     ];
 
-    public function description() {
+    public function description(): BelongsTo {
         return $this->belongsTo(Description::class,'description_id');
     }
 }
