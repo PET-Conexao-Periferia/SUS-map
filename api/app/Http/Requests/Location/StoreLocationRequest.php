@@ -25,7 +25,7 @@ class StoreLocationRequest extends FormRequest
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
             'photo' => ['nullable', 'image'],
-            
+                
             //description validation:
             'description' => ['nullable', 'array'],
             'description.name' => ['required.description', 'string'],
