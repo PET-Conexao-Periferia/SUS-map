@@ -32,6 +32,30 @@ class LocationController extends Controller
 
         $location = Location::create($validated);
 
+        if(isset($validated['description'])) {
+            $location->description()->create($validated['description']);
+
+            // if(isset($validated['description']['openingTimes'])) {
+            //     $location->description()->openingTimes()->createMany($validated['description']['openingTimes']);
+            // }
+        }
+
+        if(isset($validated['services'])) {
+                $services = [
+                    'with_id' => [],
+                    'without_id' => []
+                ];
+
+                foreach($validated['services'] as $service) {
+                    if(isset($service['id'])) {
+                        $services['with_id'][] = $service;
+                    } else {
+                        $services['without_id'][] = $service;
+                    }
+                }
+                $location->services()->createMany($services['without_id']);
+                $location->services()->attach($services['with_id']);
+            }
         response($location, 201);
     }
 

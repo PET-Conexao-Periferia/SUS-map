@@ -15,7 +15,7 @@ class Description extends Model
     protected $fillable = [
         'name',
         'contact',
-        'id_openingTimes',
+        'openingTimes_id',
     ];
 
     public function location(): BelongsTo
@@ -25,7 +25,7 @@ class Description extends Model
 
     public function openingTimes(): HasOne
     {
-        return $this->hasOne(OpeningTimes::class, 'id_openingTimes');
+        return $this->hasOne(OpeningTimes::class, 'openingTimes_id');
     }
 
     public function address(): HasOne
