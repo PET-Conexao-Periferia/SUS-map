@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->string('description', 255);
+            $table->string('name');
+            $table->string('description', 400);
             $table->dateTime( 'startTime');
             $table->dateTime( 'endTime');
             $table->timestamps();
