@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OpeningTimes extends Model
 {
@@ -12,13 +14,13 @@ class OpeningTimes extends Model
         'endTime',
     ];
 
-    public function service()
+    public function service(): BelongsToMany
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsToMany(Service::class);
     }
 
-    public function description()
+    public function description(): BelongsToMany
     {
-        return $this->hasMany(Description::class);
+        return $this->belongsToMany(Description::class);
     }
 }
