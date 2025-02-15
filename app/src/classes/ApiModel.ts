@@ -1,7 +1,7 @@
 import type {AxiosInstance, AxiosResponse} from "axios";
 
 export default abstract class ApiModel<ClassType> {
-    protected abstract url: string;
+    abstract url: string;
     protected loading: boolean = false;
     protected created_at?: Date;
     protected updated_at?: Date;
