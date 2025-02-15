@@ -1,3 +1,4 @@
+name: 'sus-map'
 services:
     laravel.test:
         build:
