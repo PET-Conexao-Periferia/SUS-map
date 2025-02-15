@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Description extends Model
@@ -23,9 +24,9 @@ class Description extends Model
         return $this->belongsTo(Location::class, 'location_id');
     }
 
-    public function openingTimes(): HasOne
+    public function openingTimes(): HasMany
     {
-        return $this->hasOne(OpeningTimes::class, 'id_openingTimes');
+        return $this->hasMany(OpeningTimes::class, 'id_openingTimes');
     }
 
     public function address(): HasOne
