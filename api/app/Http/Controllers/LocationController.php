@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Location\IndexLocationRequest;
 use App\Http\Requests\Location\StoreLocationRequest;
 use App\Http\Requests\Location\UpdateLocationRequest;
 use Illuminate\Http\Request;
@@ -12,10 +13,19 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(indexLocationRequest $request)
     {
-        //logica será bruscamente alterada!
-        return response(Location::paginate(), 200);
+        $validated = $request->validated();
+
+        //formula utilizada: Distância = raiz quadrada de (x2 - x1)² + (y2 - y1)²
+        $locations = Location::selectRaw(
+            '*, SQRT(POW(latitude - ?, 2) + POW(longitude - ?, 2)) as distance',
+            [$validated['latitude'], $validated['longitude']]
+        )
+            ->orderBy('distance')
+            ->paginate();
+
+        return response($locations, 200);
     }
 
     /**
@@ -35,9 +45,9 @@ class LocationController extends Controller
         if(isset($validated['description'])) {
             $location->description()->create($validated['description']);
 
-            // if(isset($validated['description']['openingTimes'])) {
-            //     $location->description()->openingTimes()->createMany($validated['description']['openingTimes']);
-            // }
+             if(isset($validated['description']['openingTimes'])) {
+                 $location->description()->openingTimes()->createMany($validated['description']['openingTimes']);
+             }
         }
 
         if(isset($validated['services'])) {
