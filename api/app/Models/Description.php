@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Description extends Model
 {
     protected $primaryKey = 'location_id';
-    public $incrementing = false;
-    protected $keyType = 'int';
     protected $fillable = [
         'name',
         'contact',
@@ -21,11 +19,6 @@ class Description extends Model
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'location_id');
-    }
-
-    public function openingTimes(): HasOne
-    {
-        return $this->hasOne(OpeningTimes::class, 'openingTimes_id');
     }
 
     public function address(): HasOne

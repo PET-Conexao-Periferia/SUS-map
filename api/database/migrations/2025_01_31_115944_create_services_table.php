@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('openingTimes_id')->constrained('opening_times')->onDelete('cascade');
+            $table->foreignId('location_id')
+                ->constrained('locations')
+                ->onDelete('cascade');
             $table->timestamps();
-
         });
     }
 
