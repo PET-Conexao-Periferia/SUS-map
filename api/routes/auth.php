@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\auth\VerificationMailController;
-use App\Http\Controllers\auth\AuthenticationController;
+use App\Http\Controllers\Auth\VerificationMailController;
+use App\Http\Controllers\Auth\AuthenticationController;
 use Illuminate\Http\Request;
 
 Route::prefix('users')
