@@ -1,0 +1,13 @@
+name: 'sus-map'
+services:
+  app:
+    image: 'node:22-alpine'
+    entrypoint: /bin/sh
+    working_dir: /app
+    ports:
+      - '3000:3000'
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    tty: true
