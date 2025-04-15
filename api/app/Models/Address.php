@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Address extends Model{
     protected $primaryKey = 'description_id';
-    public $incrementing = false;
-    protected $keyType = 'int';
     protected $fillable = [
         'street',
         'number',
@@ -22,4 +20,3 @@ class Address extends Model{
     }
 }
 
-    

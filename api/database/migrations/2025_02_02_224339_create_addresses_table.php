@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->foreignId('description_id')->references('location_id')->on('descriptions')->onDelete('cascade')->primary();
+            $table->foreignId('description_id')
+                ->references('location_id')
+                ->on('descriptions')
+                ->onDelete('cascade');
+            $table->primary('description_id');
             $table->string('street');
             $table->integer('number');
             $table->string('district');

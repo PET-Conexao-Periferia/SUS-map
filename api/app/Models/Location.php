@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Location extends Model
@@ -23,8 +24,8 @@ class Location extends Model
         return $this->belongsToMany(Campaign::class, 'locations_campaigns', 'location_id', 'campaigns_id');
     }
 
-    public function services(): BelongsToMany
+    public function services(): HasMany
     {
-        return $this->belongsToMany(Service::class, 'locations_services', 'location_id', 'service_id');
+        return $this->hasMany(Service::class);
     }
 }
