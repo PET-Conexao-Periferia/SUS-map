@@ -1,23 +1,38 @@
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <script lang="ts">
+import useUserStore from "~/stores/use-user-store";
+
 export default defineComponent({
   name: 'App',
 
-  mounted() {
-    if(localStorage.getItem('token')) {
-      this.$axios.defaults
-          .headers
-          .common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+  async setup() {
+    const token = useCookie('token');
+    const user = useUserStore();
+    if(token.value) {
+      try {
+        await user.fetch();
+      } catch(e) {
+        console.log(e);
+        token.value = null;
+      }
     }
 
-    this.$axios.get('/sanctum/csrf-cookie');
+    return {
+      user,
+      token,
+    }
   },
+
+  async mounted() {
+    if(this.token) {
+      this.user.fetchIsAdmin();
+    }
+    this.$axios.get('/sanctum/csrf-cookie');
+  }
 });
 </script>

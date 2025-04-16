@@ -1,7 +1,7 @@
 <template>
 <Form @submit.prevent="submit" class="tw-mx-12 tw-mt-24">
   <img
-      src="~/assets/img/logo-pet-horizontal.svg"
+      src="../../assets/img/logo-pet-horizontal.svg"
       alt="logo do PET - Conexão Periferia"
       class="tw-block tw-mx-auto"
   />
@@ -58,28 +58,24 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
-import User from '~/classes/User';
+import {defineComponent} from 'vue';
 import {type AxiosError, type AxiosResponse} from "axios";
 import useUserStore from "~/stores/use-user-store";
 import { z } from 'zod';
+import AuthService from "~/services/AuthService";
 
 export default defineComponent({
   name: "register",
 
-  data() {
-    const user = new User({
+  data: () => ({
+    user: {
       name: '',
       email: '',
       password: '',
       password_confirmation: '',
-    });
-
-    return {
-      user,
-      userStore: null as null | useUserStore
-    }
-  },
+    },
+    userStore: useUserStore(),
+  }),
 
   methods: {
     async submit() {
@@ -94,14 +90,10 @@ export default defineComponent({
         this.validationPasswordConfirmation(this.user.password_confirmation)
       ) {
         try {
-          const res = await this.user.register(this.$axios);
-          if(typeof res === 'object' && 'data' in res) {
-            const token = res.data.token;
-            this.$axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            localStorage.setItem('token', token);
-
-            await this.userStore?.data.fetch(this.$axios);
-            this.$router.push('/');
+          const res = await AuthService.register(this.user);
+          if(res) {
+            await this.userStore.fetch();
+            navigateTo('/');
           }
         } catch (e: AxiosResponse | AxiosError | any) {
           console.log(e);
@@ -127,9 +119,5 @@ export default defineComponent({
       return value === this.user.password;
     }
   },
-
-  mounted() {
-    this.userStore = useUserStore();
-  }
 })
 </script>

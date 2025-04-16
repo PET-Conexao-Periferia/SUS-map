@@ -2,19 +2,26 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: false },
+    ssr: true,
     srcDir: 'src',
     css: [
         '~/assets/css/main.scss',
-        '~/assets/css/variables.scss',
         '~/assets/css/tailwind.scss',
     ],
+    vite: {
+        css:
+            {
+                preprocessorOptions: {
+                    scss: {
+                        additionalData: "@use '~/assets/css/variables.scss' as *;",
+                    },
+                },
+            },
+    },
     plugins: [
         '~/plugins/axios',
     ],
-    modules: [
-        '@pinia/nuxt',
-        '@nuxtjs/leaflet',
-    ],
+    modules: ['@pinia/nuxt', '@nuxtjs/leaflet'],
     pinia: {
         storesDirs: [
             './stores/**'
@@ -30,10 +37,11 @@ export default defineNuxtConfig({
         head: {
             script: [
                 {
-                    src: import.meta.env.VITE_API_BASE_URL + '/vlibras-plugin.js',
+                    src: '/vlibras.js',
                     tagPosition: 'bodyClose',
                 }
             ],
+            title: 'SUS Map',
             htmlAttrs: {
                 lang: 'pt-BR',
             },

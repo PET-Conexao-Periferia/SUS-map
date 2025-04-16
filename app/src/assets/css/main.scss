@@ -1,8 +1,18 @@
 @import url('https://fonts.cdnfonts.com/css/avenir-lt-pro');
 
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+
 body {
   background-image: url('~/assets/img/background.svg');
-  -webkit-mask-image: url('~/assets/img/background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  min-height: 100vh;
   font-size: 14px;
   font-family: 'Avenir LT Pro', sans-serif;
 }

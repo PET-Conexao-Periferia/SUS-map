@@ -2,7 +2,7 @@
 <Form @submit.prevent="submit" class="tw-mt-40 tw-mx-14">
 
   <img
-      src="~/assets/img/logo-pet-horizontal.svg"
+      src="../../assets/img/logo-pet-horizontal.svg"
       alt="logo do PET - Conexão Periferia"
       class="tw-block tw-mx-auto tw-mb-14"
   />
@@ -37,8 +37,6 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
-import User from "~/classes/User";
 import useUserStore from "~/stores/use-user-store";
 import AuthService from "~/services/AuthService";
 import { z } from "zod";
@@ -46,17 +44,13 @@ import { z } from "zod";
 export default defineComponent({
   name: "login",
 
-  data() {
-    const user = new User({
+  data: () => ({
+    user: {
       email: '',
       password: ''
-    });
-
-    return {
-      user,
-      userStore: null as null | useUserStore,
-    }
-  },
+    },
+    userStore: useUserStore(),
+  }),
 
   methods: {
     async submit() {
@@ -66,11 +60,11 @@ export default defineComponent({
           this.validationEmail(this.user.email) &&
           this.validationPassword(this.user.password)
       ) {
-        const res = await AuthService.login(this.$axios, this.user);
+        const res = await AuthService.login(this.user);
 
         if(res) {
-          await this.userStore?.data.fetch(this.$axios);
-          this.$router.push('/');
+          await this.userStore.fetch(this.$axios);
+          navigateTo('/');
         }
       }
     },
@@ -82,10 +76,6 @@ export default defineComponent({
       const passwordSchema = z.string().min(6);
       return passwordSchema.safeParse(value).success;
     }
-  },
-
-  mounted() {
-    this.userStore = useUserStore();
   },
 })
 </script>

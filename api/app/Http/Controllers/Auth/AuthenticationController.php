@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\SendVerificationCodeEvent;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\auth\LoginAuthenticationRequest;
-use App\Http\Requests\auth\RegisterAuthenticationRequest;
+use App\Http\Requests\Auth\LoginAuthenticationRequest;
+use App\Http\Requests\Auth\RegisterAuthenticationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
