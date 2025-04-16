@@ -17,6 +17,7 @@ export default defineComponent({
       try {
         await user.fetch();
       } catch(e) {
+        console.log(e);
         token.value = null;
       }
     }

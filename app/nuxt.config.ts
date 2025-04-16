@@ -21,10 +21,7 @@ export default defineNuxtConfig({
     plugins: [
         '~/plugins/axios',
     ],
-    modules: [
-        '@pinia/nuxt',
-        '@nuxtjs/leaflet',
-    ],
+    modules: ['@pinia/nuxt', '@nuxtjs/leaflet'],
     pinia: {
         storesDirs: [
             './stores/**'

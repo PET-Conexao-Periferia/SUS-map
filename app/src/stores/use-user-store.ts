@@ -10,6 +10,11 @@ export default defineStore("user", {
     actions: {
         async fetchIsAdmin() {
             const { $axios } = useNuxtApp();
+
+            const token = useCookie('token');
+            if(token.value) {
+                $axios.defaults.headers.common['Authorization'] = `Bearer ${token.value}`;
+            }
             const { data } = await $axios.get('/api/users/is_admin');
             this.is_admin = data.is_admin;
             setTimeout(async () => {
@@ -22,6 +27,10 @@ export default defineStore("user", {
         },
         async fetch() {
             const { $axios } = useNuxtApp();
+            const token = useCookie('token');
+            if(token.value) {
+                $axios.defaults.headers.common['Authorization'] = `Bearer ${token.value}`;
+            }
             const { data } = await $axios.get('/api/users');
             this.data = data;
         },
