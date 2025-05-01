@@ -2,7 +2,7 @@
 <Form @submit.prevent="submit" class="tw-mt-40 tw-mx-14">
 
   <img
-      src="../../assets/img/logo-pet-horizontal.svg"
+      src="~/assets/img/logo-pet-horizontal.svg"
       alt="logo do PET - Conexão Periferia"
       class="tw-block tw-mx-auto tw-mb-14"
   />
@@ -13,9 +13,10 @@
       v-model="user.email"
       placeholder="Digite seu e-mail..."
       class="tw-mb-5 tw-mx-6"
-      :validation="validationEmail"
-      message-error="E-mail inválido"
-  />
+      :error="logErrors.email"
+  >
+    <ErrorMessage message-error="E-mail inválido" />
+  </Input>
 
   <Input
       label="Senha"
@@ -23,9 +24,10 @@
       v-model="user.password"
       placeholder="Digite sua senha..."
       class="tw-mb-14 tw-mx-6"
-      :validation="validationPassword"
-      message-error="Senha inválida"
-  />
+      :error="logErrors.password"
+  >
+    <ErrorMessage message-error="Senha inválida" />
+  </Input>
 
   <Button
       type="submit"
@@ -36,48 +38,58 @@
 </Form>
 </template>
 
-<script lang="ts">
-import useUserStore from "~/stores/use-user-store";
+<script setup lang="ts">
 import AuthService from "~/services/AuthService";
-import { z } from "zod";
+import { loginSchema } from "~/validations/userSchemaValidation";
 
-export default defineComponent({
-  name: "login",
+const user = ref({
+  email: '',
+  password: ''
+});
+const logErrors = ref({
+  email: false,
+  password: false,
+});
+const { $userStore } = useNuxtApp();
 
-  data: () => ({
-    user: {
-      email: '',
-      password: ''
-    },
-    userStore: useUserStore(),
-  }),
-
-  methods: {
-    async submit() {
-      if(
-          this.user.email &&
-          this.user.password &&
-          this.validationEmail(this.user.email) &&
-          this.validationPassword(this.user.password)
-      ) {
-        const res = await AuthService.login(this.user);
-
-        if(res) {
-          await this.userStore.fetch(this.$axios);
-          navigateTo('/');
-        }
-      }
-    },
-    validationEmail(value: string): boolean {
-      const emailSchema = z.string().email();
-      return emailSchema.safeParse(value).success;
-    },
-    validationPassword(value: string): boolean {
-      const passwordSchema = z.string().min(6);
-      return passwordSchema.safeParse(value).success;
-    }
-  },
+watch(user, () => {
+  validated();
+}, {
+  deep: true,
 })
+
+async function submit() {
+  if(
+      user.value.email &&
+      user.value.password &&
+      validated()
+  ) {
+    const res = await AuthService.login(user.value);
+
+    if(res) {
+      await $userStore.fetch();
+      navigateTo('/');
+    }
+  }
+}
+function validated() {
+  const result = loginSchema.safeParse(user.value);
+
+  logErrors.value.email = false;
+  logErrors.value.password = false;
+
+  if(!result.success) {
+    const errors = result.error.issues;
+    for(const error of errors) {
+      //@ts-ignore
+      if(typeof logErrors.value[String(error.path[0])] === 'boolean') {
+        //@ts-ignore
+        logErrors.value[String(error.path[0])] = true;
+      }
+    }
+  }
+  return result.success;
+}
 </script>
 
 <style scoped>

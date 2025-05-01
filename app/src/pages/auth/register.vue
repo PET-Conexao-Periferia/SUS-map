@@ -1,7 +1,7 @@
 <template>
 <Form @submit.prevent="submit" class="tw-mx-12 tw-mt-24">
   <img
-      src="../../assets/img/logo-pet-horizontal.svg"
+      src="~/assets/img/logo-pet-horizontal.svg"
       alt="logo do PET - Conexão Periferia"
       class="tw-block tw-mx-auto"
   />
@@ -17,9 +17,10 @@
       type="text"
       placeholder="Digite seu nome..."
       class="tw-mx-6 tw-mb-4"
-      :validation="validationName"
-      message-error="Nome inválido"
-  />
+      :error="logErrors.name"
+  >
+    <ErrorMessage message-error="Nome inválido" />
+  </Input>
 
   <Input
       label="E-mail"
@@ -27,9 +28,10 @@
       type="email"
       placeholder="Digite seu e-mail..."
       class="tw-mx-6 tw-mb-4"
-      :validation="validationEmail"
-      message-error="E-mail inválido"
-  />
+      :error="logErrors.email"
+  >
+    <ErrorMessage message-error="Email inválido" />
+  </Input>
 
   <Input
       label="Senha"
@@ -37,9 +39,10 @@
       type="password"
       placeholder="Digite sua senha..."
       class="tw-mx-6 tw-mb-4"
-      :validation="validationPassword"
-      message-error="Senha inválida"
-  />
+      :error="logErrors.password"
+  >
+    <ErrorMessage message-error="Senha inválida" />
+  </Input>
 
   <Input
       label="Confirmar Senha"
@@ -47,9 +50,10 @@
       type="password"
       placeholder="Confirme sua senha..."
       class="tw-mx-6 tw-mb-4"
-      :validation="validationPasswordConfirmation"
-      message-error="Senhas diferentes"
-  />
+      :error="logErrors.password_confirmation"
+  >
+    <ErrorMessage message-error="Senha não corresponde" />
+  </Input>
 
   <Button type="submit" class="tw-block tw-mx-auto tw-mt-12">
     Cadastro
@@ -57,67 +61,69 @@
 </Form>
 </template>
 
-<script lang="ts">
-import {defineComponent} from 'vue';
-import {type AxiosError, type AxiosResponse} from "axios";
-import useUserStore from "~/stores/use-user-store";
-import { z } from 'zod';
+<script setup lang="ts">
+import { type AxiosError, type AxiosResponse } from "axios";
 import AuthService from "~/services/AuthService";
+import { registerSchema } from "~/validations/userSchemaValidation";
 
-export default defineComponent({
-  name: "register",
+const user = ref({
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+});
+const logErrors = ref({
+  name: false,
+  email: false,
+  password: false,
+  password_confirmation: false,
+});
 
-  data: () => ({
-    user: {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-    },
-    userStore: useUserStore(),
-  }),
-
-  methods: {
-    async submit() {
-      if(
-        this.user.name &&
-        this.user.email &&
-        this.user.password &&
-        this.user.password_confirmation &&
-        this.validationName(this.user.name) &&
-        this.validationEmail(this.user.email) &&
-        this.validationPassword(this.user.password) &&
-        this.validationPasswordConfirmation(this.user.password_confirmation)
-      ) {
-        try {
-          const res = await AuthService.register(this.user);
-          if(res) {
-            await this.userStore.fetch();
-            navigateTo('/');
-          }
-        } catch (e: AxiosResponse | AxiosError | any) {
-          console.log(e);
-        }
-      }
-    },
-    validationName(value: any) {
-      if(!value) return false;
-      return value.length > 0;
-    },
-    validationEmail(value: any) {
-      if(!value) return false;
-      const emailSchema = z.string().email();
-      return emailSchema.safeParse(value).success;
-    },
-    validationPassword(value: any) {
-      if(!value) return false;
-      const passwordSchema = z.string().min(6);
-      return passwordSchema.safeParse(value).success;
-    },
-    validationPasswordConfirmation(value: any) {
-      if(!value) return false;
-      return value === this.user.password;
-    }
-  },
+watch(user, () => {
+  validated();
+}, {
+  deep: true,
 })
+
+const { $userStore } = useNuxtApp();
+
+async function submit() {
+  if(
+      user.value.name &&
+      user.value.email &&
+      user.value.password &&
+      user.value.password_confirmation &&
+      validated()
+  ) {
+    try {
+      const res = await AuthService.register(user.value);
+      if(res) {
+        await $userStore.fetch();
+        navigateTo('/');
+      }
+    } catch (e: AxiosResponse | AxiosError | any) {
+      console.log(e);
+    }
+  }
+}
+function validated() {
+  const result = registerSchema.safeParse(user.value);
+
+  logErrors.value.name = false;
+  logErrors.value.email = false;
+  logErrors.value.password = false;
+  logErrors.value.password_confirmation = false;
+
+  if(!result.success) {
+    const errors = result.error.issues;
+    for(const error of errors) {
+      //@ts-ignore
+      if(typeof logErrors.value[String(error.path[0])] === 'boolean') {
+        //@ts-ignore
+        logErrors.value[String(error.path[0])] = true;
+      }
+    }
+  }
+  return result.success;
+}
 </script>
