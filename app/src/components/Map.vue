@@ -2,8 +2,11 @@
   <div style="height:100vh; width:100vw">
     <LMap
         ref="map"
-        :use-global-leaflet="true"
+        use-global-leaflet
         @ready="onMapReady"
+        :options="{
+          zoomControl: false,
+        }"
     >
       <LTileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -11,32 +14,45 @@
           layer-type="base"
           name="OpenStreetMap"
       />
+      <LMarker
+          v-for="point in $locationStore.points"
+          :key="point.id"
+          :lat-lng="[point.latitude, point.longitude]"
+      >
+        <LTooltip :content="`Distancia: ${point.distance}`" />
+      </LMarker>
     </LMap>
   </div>
 </template>
 
-<script setup>
-import L from 'leaflet';
+<script setup lang="ts">
+import L, { type Map } from 'leaflet';
 
 const map = ref(null);
+const { $locationStore } = useNuxtApp();
 
-const onMapReady = () => {
-  map.value.leafletObject.locate({
+const onMapReady = (leafletObject: Map): void => {
+  leafletObject.locate({
     setView: true,
     maxZoom: 16
   });
 
-  map.value.leafletObject.on('locationfound', (e) => {
+  leafletObject.on('locationfound', (e) => {
     const radius = e.accuracy;
 
+    $locationStore.current.longitude = e.latlng.lng;
+    $locationStore.current.latitude = e.latlng.lat;
+    $locationStore.fetchNearbyPoints();
+
     L.marker(e.latlng)
-        .addTo(map.value.leafletObject)
-        .bindPopup("You are within " + radius + " meters from this point")
+        .addTo(leafletObject)
+        .bindPopup("Você está aqui")
         .openPopup();
 
     L.circle(e.latlng, radius)
-        .addTo(map.value.leafletObject);
-  })
+        .addTo(leafletObject);
+
+  });
 }
 </script>
 

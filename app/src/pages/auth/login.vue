@@ -42,6 +42,10 @@
 import AuthService from "~/services/AuthService";
 import { loginSchema } from "~/validations/userSchemaValidation";
 
+definePageMeta({
+  name: 'login'
+});
+
 const user = ref({
   email: '',
   password: ''

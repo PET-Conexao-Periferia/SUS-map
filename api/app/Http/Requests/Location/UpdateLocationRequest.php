@@ -25,6 +25,10 @@ class UpdateLocationRequest extends FormRequest
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
             'photo' => ['nullable', 'image'],
+
+            'description' => ['nullable', 'array'],
+            'description.name' => ['required.description', 'string'],
+            'description.contact' => ['required.description', 'string'],
         ];
     }
 }

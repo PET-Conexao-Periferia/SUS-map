@@ -1,74 +1,57 @@
 <template>
   <div :class="'tw-grid ' + $props.class">
-    <label class="tw-pl-1">{{label}}</label>
+    <label class="tw-pl-1">{{ label }}</label>
     <input
         v-bind="$attrs"
         @input="validate = true"
         v-model="inputValue"
+        :class="{'variant-select': props.variant}"
     />
-    <Transition>
-      <small v-if="error" class="tw-pl-1 tw-pt-1">{{messageError}}</small>
-    </Transition>
+    <slot v-if="validate && props.error" />
   </div>
 </template>
 
-<script lang="ts">
-
-export default defineComponent({
-  name: "Input",
-
-  data() {
-    return {
-      validate: false,
-      error: false,
-    }
+<script setup lang="ts">
+const props = defineProps({
+  label: {
+    type: String,
+    default: '',
   },
-
-  props: {
-    label: {
-      type: String,
-      default: '',
-    },
-    class: {
-      type: String,
-      default: '',
-    },
-    validation: {
-      type: Function as PropType<(value: any) => boolean>,
-    },
-    modelValue: {
-      type: null,
-      required: true,
-    },
-    messageError: {
-      type: String,
-      default: '',
-    }
+  class: {
+    type: String,
+    default: '',
   },
-
-  emits: ['update:modelValue'],
-
-  computed: {
-    inputValue: {
-      get() {
-        return this.modelValue;
-      },
-      set(value: any) {
-        if(this.validation) {
-          this.error = !this.validation(value);
-        }
-        this.$emit('update:modelValue', value);
-      }
-    },
-    textColor() {
-      return this.validate && this.error ? '#CD191E' : '';
-    },
-    borderColor() {
-      return this.validate && this.error ? '#CD191E' : '#2D2F46';
-    }
+  modelValue: {
+    type: null,
+    required: true,
+  },
+  messageError: {
+    type: String,
+    default: '',
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  variant: {
+    type: Boolean,
+    default: false,
   }
 });
+const emit = defineEmits(['update:modelValue']);
 
+const validate = ref(false);
+
+const inputValue = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value: any) {
+    emit('update:modelValue', value);
+  }
+});
+const textColor = computed(() => validate.value && props.error ? '#CD191E' : '');
+const borderColor = computed(() => validate.value && props.error ? '#CD191E' : '#2D2F46');
 </script>
 
 <style scoped>
@@ -89,7 +72,7 @@ input::placeholder {
 label {
   color: v-bind(textColor);
 }
-small {
-  color: #CD191E;
+.variant-select {
+  background-color: #CCD2FF;
 }
 </style>

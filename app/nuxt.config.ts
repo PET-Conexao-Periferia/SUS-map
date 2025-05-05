@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: false },
+    debug: true,
     ssr: true,
     srcDir: 'src',
     css: [
@@ -9,22 +10,18 @@ export default defineNuxtConfig({
         '~/assets/css/tailwind.scss',
     ],
     vite: {
-        css:
-            {
-                preprocessorOptions: {
-                    scss: {
-                        additionalData: "@use '~/assets/css/variables.scss' as *;",
-                    },
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: "@use '~/assets/css/variables.scss' as *;",
                 },
             },
+        },
     },
-    plugins: [
-        '~/plugins/axios',
-    ],
     modules: ['@pinia/nuxt', '@nuxtjs/leaflet'],
     pinia: {
         storesDirs: [
-            './stores/**'
+            '~/stores/**'
         ],
     },
     postcss: {

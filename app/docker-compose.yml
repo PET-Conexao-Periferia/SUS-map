@@ -1,7 +1,7 @@
 name: 'sus-map'
 services:
   app:
-    image: 'node:20-alpine'
+    image: 'node:22-alpine'
     ports:
       - '3000:3000'
     working_dir: /app
@@ -10,4 +10,19 @@ services:
         source: .
         target: /app
     tty: true
-    command: sh -c "npm install && npm run dev"
+    stdin_open: true
+    command: sh -c "yarn install && yarn dev"
+  app-host:
+    image: 'node:22-alpine'
+    ports:
+      - '3001:3000'
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    tty: true
+    stdin_open: true
+    command: sh -c "yarn install && yarn dev-host-https"
+    profiles:
+      - 'host'

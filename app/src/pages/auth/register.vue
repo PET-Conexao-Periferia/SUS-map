@@ -66,6 +66,10 @@ import { type AxiosError, type AxiosResponse } from "axios";
 import AuthService from "~/services/AuthService";
 import { registerSchema } from "~/validations/userSchemaValidation";
 
+definePageMeta({
+  name: 'register',
+});
+
 const user = ref({
   name: '',
   email: '',

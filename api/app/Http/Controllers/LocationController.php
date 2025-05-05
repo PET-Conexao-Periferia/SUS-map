@@ -7,6 +7,7 @@ use App\Http\Requests\Location\StoreLocationRequest;
 use App\Http\Requests\Location\UpdateLocationRequest;
 use Illuminate\Http\Request;
 use \App\Models\Location;
+use Illuminate\Support\Facades\Storage;
 
 class LocationController extends Controller
 {
@@ -59,8 +60,6 @@ class LocationController extends Controller
     public function show(Location $location)
     {
         $location->load('campaigns', 'description', 'services');
-        $location->description();
-        $location->services();
         response($location, 200);
     }
 
@@ -73,8 +72,8 @@ class LocationController extends Controller
         if(isset($validated['photo'])) {
             $photoPath = $validated['photo']->store('photos', 'public');
             $validated['photo'] = $photoPath;
+            Storage::delete('public/' . $location->photo);
         }
-
         $location->update($validated);
         response($location, 200);
     }

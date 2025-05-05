@@ -4,35 +4,25 @@
   </NuxtLayout>
 </template>
 
-<script lang="ts">
-import useUserStore from "~/stores/use-user-store";
+<script setup lang="ts">
+import useUserStore from "~/stores/useUserStore";
 
-export default defineComponent({
-  name: 'App',
-
-  async setup() {
-    const token = useCookie('token');
-    const user = useUserStore();
-    if(token.value) {
-      try {
-        await user.fetch();
-      } catch(e) {
-        console.log(e);
-        token.value = null;
-      }
-    }
-
-    return {
-      user,
-      token,
-    }
-  },
-
-  async mounted() {
-    if(this.token) {
-      this.user.fetchIsAdmin();
-    }
-    this.$axios.get('/sanctum/csrf-cookie');
+const token = useCookie('token');
+const user = useUserStore();
+if(token.value) {
+  try {
+    await user.fetch();
+  } catch(e) {
+    console.log(e);
+    token.value = null;
   }
-});
+}
+
+onMounted(() => {
+  if(token) {
+    user.fetchIsAdmin();
+  }
+  const { $axios } = useNuxtApp();
+  $axios.get('/sanctum/csrf-cookie');
+})
 </script>
