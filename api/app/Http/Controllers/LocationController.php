@@ -19,12 +19,14 @@ class LocationController extends Controller
         $validated = $request->validated();
 
         //formula utilizada: Distância = raiz quadrada de (x2 - x1)² + (y2 - y1)²
-        $locations = Location::selectRaw(
-            '*, SQRT(POW(latitude - ?, 2) + POW(longitude - ?, 2)) as distance',
+        $locations = Location::select('id', 'photo', 'latitude', 'longitude')
+            ->selectRaw(
+            'SQRT(POW(latitude - ?, 2) + POW(longitude - ?, 2)) as distance',
             [$validated['latitude'], $validated['longitude']]
         )
             ->orderBy('distance')
-            ->paginate();
+            ->take(45)
+            ->get();
 
         return response($locations, 200);
     }

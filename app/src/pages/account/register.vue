@@ -1,10 +1,6 @@
 <template>
-<Form @submit.prevent="submit" class="tw-mx-12 tw-mt-24">
-  <img
-      src="~/assets/img/logo-pet-horizontal.svg"
-      alt="logo do PET - Conexão Periferia"
-      class="tw-block tw-mx-auto"
-  />
+<Form @submit.prevent="submit" class="tw-mt-24">
+  <Logo />
   <p
       class="tw-px-3 tw-mt-12 tw-mb-9"
   >

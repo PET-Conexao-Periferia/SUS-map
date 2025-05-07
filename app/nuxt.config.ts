@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
-    devtools: { enabled: false },
+    devtools: { enabled: true },
     debug: true,
     ssr: true,
     srcDir: 'src',
@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     modules: ['@pinia/nuxt', '@nuxtjs/leaflet'],
     pinia: {
         storesDirs: [
-            '~/stores/**'
+            '~/stores/**/*.ts',
         ],
     },
     postcss: {
@@ -34,7 +34,7 @@ export default defineNuxtConfig({
         head: {
             script: [
                 {
-                    src: '/vlibras.js',
+                    src: '/js/vlibras.js',
                     tagPosition: 'bodyClose',
                 }
             ],

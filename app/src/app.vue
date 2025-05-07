@@ -5,10 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import useUserStore from "~/stores/useUserStore";
-
 const token = useCookie('token');
-const user = useUserStore();
+const { $userStore: user } = useNuxtApp();
 if(token.value) {
   try {
     await user.fetch();

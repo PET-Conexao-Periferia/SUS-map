@@ -3,28 +3,28 @@ import type { UserType } from "~/types/User";
 export default class AuthService {
     static async login(user: UserType): Promise<boolean> {
         const { $axios } = useNuxtApp();
-        return $axios.post('api/users/login', {
+        const { data } = await $axios.post('api/users/login', {
             email: user.email,
             password: user.password,
-        })
-            .then((response) => {
-                const { token } = response.data;
-                $axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        });
+        const { token } = data;
+        $axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-                const tokenCookie = useCookie('token');
-                tokenCookie.value = token;
+        const tokenCookie = useCookie('token');
+        tokenCookie.value = token;
 
-                return true;
-            });
+        return true;
     }
 
     static async logout() {
-        const { $axios } = useNuxtApp();
+        const { $axios, $userStore } = useNuxtApp();
         await $axios.post('api/users/logout');
         delete $axios.defaults.headers.common['Authorization'];
 
         const tokenCookie = useCookie('token');
         tokenCookie.value = null;
+
+        $userStore.resetData();
     }
 
     static async register(user: UserType) {

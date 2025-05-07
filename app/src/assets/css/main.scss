@@ -5,7 +5,6 @@ html, body{
   padding: 0;
 }
 
-
 body {
   background-image: url('~/assets/img/background.svg');
   background-size: cover;
@@ -17,10 +16,32 @@ body {
   font-family: 'Avenir LT Pro', sans-serif;
 }
 
-.v-enter-active, .v-leave-active {
+.v-enter-active,
+.v-leave-active {
   transition: opacity 0.5s ease;
 }
 
-.v-enter-from, .v-leave-to {
+.v-enter-from,
+.v-leave-to {
   opacity: 0;
+}
+
+nav {
+  background-color: #CCD2FF;
+  border-radius: 10px;
+
+  display:flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+
+  position: absolute;
+  width: 15em;
+  margin: 0;
+  padding: 2em 0;
+
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 }

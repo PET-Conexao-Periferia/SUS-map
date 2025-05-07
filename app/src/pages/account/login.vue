@@ -1,11 +1,7 @@
 <template>
-<Form @submit.prevent="submit" class="tw-mt-40 tw-mx-14">
+<Form @submit.prevent="submit" class="tw-mt-40">
 
-  <img
-      src="~/assets/img/logo-pet-horizontal.svg"
-      alt="logo do PET - Conexão Periferia"
-      class="tw-block tw-mx-auto tw-mb-14"
-  />
+  <Logo />
 
   <Input
       label="E-mail"

@@ -1,7 +1,6 @@
 <template>
-  <div style="height:100vh; width:100vw">
+  <div>
     <LMap
-        ref="map"
         use-global-leaflet
         @ready="onMapReady"
         :options="{
@@ -28,7 +27,6 @@
 <script setup lang="ts">
 import L, { type Map } from 'leaflet';
 
-const map = ref(null);
 const { $locationStore } = useNuxtApp();
 
 const onMapReady = (leafletObject: Map): void => {
@@ -38,15 +36,15 @@ const onMapReady = (leafletObject: Map): void => {
   });
 
   leafletObject.on('locationfound', (e) => {
-    const radius = e.accuracy;
-
     $locationStore.current.longitude = e.latlng.lng;
     $locationStore.current.latitude = e.latlng.lat;
     $locationStore.fetchNearbyPoints();
 
+    const radius = e.accuracy;
+
     L.marker(e.latlng)
         .addTo(leafletObject)
-        .bindPopup("Você está aqui")
+        .bindPopup(`Você está aqui!`)
         .openPopup();
 
     L.circle(e.latlng, radius)

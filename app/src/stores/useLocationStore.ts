@@ -7,21 +7,17 @@ export default defineStore('location', () => {
     });
     const points = ref<LocationType[]>([]);
 
-    const fetchNearbyPoints = async (page: number = 1) => {
+    const fetchNearbyPoints = async () => {
         const { $axios } = useNuxtApp();
         try {
             const { data } = await $axios.get('/api/locations', {
                 params: {
-                    page,
                     latitude: current.value.latitude,
                     longitude: current.value.longitude
                 }
             });
 
-            points.value.push(...data.data);
-            if(page < 3) {
-                fetchNearbyPoints(page + 1);
-            }
+            points.value = data;
         } catch(error) {
             return;
         }

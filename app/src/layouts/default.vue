@@ -1,7 +1,17 @@
 <template>
-  <AppHeader />
-  <main>
+  <LayoutHeader />
+  <main @click="hideMenu">
     <slot />
   </main>
-  <AppFooter />
+  <LayoutFooter />
 </template>
+
+<script setup lang="ts">
+const { $userStore } = useNuxtApp();
+function hideMenu() {
+  document.dispatchEvent(new Event('hideMenu'));
+  if($userStore.is_admin) {
+    document.dispatchEvent(new Event('hideActions'));
+  }
+}
+</script>

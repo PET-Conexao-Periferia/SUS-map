@@ -1,17 +1,14 @@
 <template>
-<form v-bind="$attrs">
-  <div class="tw-pt-12"></div>
+<form
+    v-bind="$attrs"
+    class="tw-py-12 tw-mx-14"
+>
   <slot />
-  <div class="tw-pb-12"></div>
 </form>
 </template>
 
-<script lang="ts">
-import {defineComponent} from 'vue'
+<script setup lang="ts">
 
-export default defineComponent({
-  name: "Form"
-})
 </script>
 
 <style scoped>

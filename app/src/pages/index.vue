@@ -22,8 +22,8 @@ const search = ref('');
 <style lang="scss" scoped>
 .search-bar {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
+  bottom: 2em;
+  left: 1em;
+  right: 1em;
 }
 </style>
