@@ -5,6 +5,7 @@ services:
     ports:
       - '3000:3000'
     working_dir: /app
+    user: "${USER_ID}:${GROUP_ID}"
     volumes:
       - type: bind
         source: .
@@ -12,17 +13,3 @@ services:
     tty: true
     stdin_open: true
     command: sh -c "yarn install && yarn dev"
-  app-host:
-    image: 'node:22-alpine'
-    ports:
-      - '3001:3000'
-    working_dir: /app
-    volumes:
-      - type: bind
-        source: .
-        target: /app
-    tty: true
-    stdin_open: true
-    command: sh -c "yarn install && yarn dev-host-https"
-    profiles:
-      - 'host'

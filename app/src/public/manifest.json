@@ -1,0 +1,6 @@
+{
+  "name": "Periferia+SUS",
+  "short_name": "App",
+  "start_url": "/",
+  "display": "standalone"
+}

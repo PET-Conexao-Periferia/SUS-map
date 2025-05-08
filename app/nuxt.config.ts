@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     debug: true,
     ssr: true,
+    nitro: {
+      preset: "node-server",
+    },
     srcDir: 'src',
     css: [
         '~/assets/css/main.scss',

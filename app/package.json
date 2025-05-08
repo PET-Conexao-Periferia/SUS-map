@@ -12,11 +12,16 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/cli": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/geolocation": "^7.1.2",
+    "@capacitor/ios": "^7.2.0",
     "@nuxtjs/leaflet": "^1.2.6",
     "@pinia/nuxt": "^0.9.0",
     "axios": "^1.7.9",
     "leaflet": "^1.9.4",
-    "nuxt": "^3.16.1",
+    "nuxt": "^3.17.2",
     "pinia": "^2.3.1",
     "vue": "latest",
     "vue-router": "latest",
@@ -29,5 +34,6 @@
     "postcss": "^8.5.1",
     "sass": "^1.83.4",
     "tailwindcss": "^3.4.17"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
