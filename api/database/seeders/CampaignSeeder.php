@@ -49,16 +49,16 @@ class CampaignSeeder extends Seeder
         ];
 
         foreach ($campaigns as $campaignData) {
-            // Usa updateOrCreate para evitar duplicação em execuções múltiplas
-            $campaign = Campaign::updateOrCreate(
-                ['name' => $campaignData['name']],
-                $campaignData
-            );
-            
-            // Associar de 2 a 4 locais aleatórios a cada campanha
-            $campaign->locations()->sync(
-                $locations->random(rand(2, 4))->pluck('id')->toArray()
-            );
+            $campaign = Campaign::create([
+                'name' => $campaignData['name'],
+                'description' => $campaignData['description'],
+                'startTime' => $campaignData['startTime'],
+                'endTime' => $campaignData['endTime'],
+            ]);
+    
+            // Associar a locais aleatórios
+            $randomLocations = $locations->random(min(3, $locations->count())); 
+            $campaign->locations()->attach($randomLocations->pluck('id')->toArray());
         }
     }
 }

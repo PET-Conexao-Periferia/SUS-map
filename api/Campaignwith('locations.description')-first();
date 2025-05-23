@@ -1,0 +1,48 @@
+[90m= [39m[
+    [
+      "[34mid[39m" => [35m1[39m,
+      "[34mlatitude[39m" => [33m-23.5505[39m,
+      "[34mlongitude[39m" => [33m-46.6333[39m,
+      "[34mphoto[39m" => "[32mubs_centro.jpg[39m",
+      "[34mcreated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mupdated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mdescription[39m" => [36mnull[39m,
+    ],
+    [
+      "[34mid[39m" => [35m2[39m,
+      "[34mlatitude[39m" => [33m-23.5605[39m,
+      "[34mlongitude[39m" => [33m-46.6433[39m,
+      "[34mphoto[39m" => "[32mhospital_municipal.jpg[39m",
+      "[34mcreated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mupdated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mdescription[39m" => [36mnull[39m,
+    ],
+    [
+      "[34mid[39m" => [35m3[39m,
+      "[34mlatitude[39m" => [33m-23.5405[39m,
+      "[34mlongitude[39m" => [33m-46.6233[39m,
+      "[34mphoto[39m" => "[32mubs_norte.jpg[39m",
+      "[34mcreated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mupdated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mdescription[39m" => [36mnull[39m,
+    ],
+    [
+      "[34mid[39m" => [35m4[39m,
+      "[34mlatitude[39m" => [33m-23.5705[39m,
+      "[34mlongitude[39m" => [33m-46.6533[39m,
+      "[34mphoto[39m" => "[32mposto_sul.jpg[39m",
+      "[34mcreated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mupdated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mdescription[39m" => [36mnull[39m,
+    ],
+    [
+      "[34mid[39m" => [35m5[39m,
+      "[34mlatitude[39m" => [33m-23.5555[39m,
+      "[34mlongitude[39m" => [33m-46.6383[39m,
+      "[34mphoto[39m" => "[32mcentro_especialidades.jpg[39m",
+      "[34mcreated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mupdated_at[39m" => "[32m2025-05-15T22:56:54.000000Z[39m",
+      "[34mdescription[39m" => [36mnull[39m,
+    ],
+  ]
+
