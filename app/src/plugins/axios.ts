@@ -11,6 +11,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost',
         withCredentials: false,
         withXSRFToken: true,
+        headers: {
+            "ngrok-skip-browser-warning": true,
+        }
     });
 
     nuxtApp.vueApp.config.globalProperties.$axios = api;

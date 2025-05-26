@@ -1,12 +1,31 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'www.periferiasus.com',
+  appId: 'periferia.sus',
   appName: 'Periferia+SUS',
-  webDir: '.output/public',
   server: {
-    url: 'http://localhost:3000',
+    url: 'https://192.168.0.10:3000',
     cleartext: true
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true
+    },
+    CapacitorGeolocation: {
+      enabled: true
+    },
+    CapacitorCookies: {
+      enabled: true
+    },
+    CapacitorBrowser: {
+      enabled: true
+    },
+    CapacitorApp: {
+      enabled: true
+    },
+    CapacitorDevice: {
+      enabled: true
+    },
   }
 };
 

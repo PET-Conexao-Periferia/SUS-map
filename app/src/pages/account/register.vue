@@ -10,6 +10,7 @@
   <Input
       label="Nome"
       v-model="user.name"
+      name="user.name"
       type="text"
       placeholder="Digite seu nome..."
       class="tw-mx-6 tw-mb-4"
@@ -21,6 +22,7 @@
   <Input
       label="E-mail"
       v-model="user.email"
+      name="user.email"
       type="email"
       placeholder="Digite seu e-mail..."
       class="tw-mx-6 tw-mb-4"
@@ -32,6 +34,7 @@
   <Input
       label="Senha"
       v-model="user.password"
+      name="user.password"
       type="password"
       placeholder="Digite sua senha..."
       class="tw-mx-6 tw-mb-4"
@@ -43,6 +46,7 @@
   <Input
       label="Confirmar Senha"
       v-model="user.password_confirmation"
+      name="user.password_confirmation"
       type="password"
       placeholder="Confirme sua senha..."
       class="tw-mx-6 tw-mb-4"

@@ -1,28 +1,30 @@
 <template>
-  <div :class="'tw-grid ' + $props.class">
-    <label class="tw-pl-1">{{ label }}</label>
+  <label
+      :class="'tw-grid ' + $attrs.class"
+      :for="$attrs.id ? String($attrs.id) : undefined"
+  >
+    <span>{{ label }}</span>
     <input
         v-bind="$attrs"
         @input="validate = true"
         v-model="inputValue"
-        :class="{'variant-select': props.variant}"
+        :class="[
+            {'variant-select': props.variant},
+            $attrs?.['input.class'] ?? '',
+        ]"
     />
     <slot v-if="validate && props.error" />
-  </div>
+  </label>
 </template>
 
 <script setup lang="ts">
+
 const props = defineProps({
   label: {
     type: String,
     default: '',
   },
-  class: {
-    type: String,
-    default: '',
-  },
   modelValue: {
-    type: null,
     required: true,
   },
   messageError: {
@@ -36,7 +38,7 @@ const props = defineProps({
   variant: {
     type: Boolean,
     default: false,
-  }
+  },
 });
 const emit = defineEmits(['update:modelValue']);
 
@@ -65,6 +67,7 @@ input {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   padding-left: 10px;
   color: v-bind(textColor);
+  margin: 0;
 }
 input::placeholder {
   color: v-bind(textColor);

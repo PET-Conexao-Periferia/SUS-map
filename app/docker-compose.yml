@@ -13,3 +13,20 @@ services:
     tty: true
     stdin_open: true
     command: sh -c "yarn install && yarn dev"
+  app-host:
+    image: 'node:22-alpine'
+    ports:
+      - '3000:3000'
+    working_dir: /app
+    user: "${USER_ID}:${GROUP_ID}"
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    tty: true
+    stdin_open: true
+    # para gerar os certificados, recomendo utilizar o mkcert
+    # https://github.com/FiloSottile/mkcert
+    command: sh -c "yarn install && yarn dev-host-https --https.cert localhost.pem --https.key localhost-key.pem"
+    profiles:
+      - host

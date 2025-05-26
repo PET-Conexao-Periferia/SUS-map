@@ -5,3 +5,8 @@ export type LocationType = {
     photo?: string | File,
     distance?: number
 }
+
+export type LocationCreateType = {
+    cep_or_street: string,
+    point: LocationType
+}

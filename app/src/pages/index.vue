@@ -1,10 +1,11 @@
 <template>
-  <ClientOnly>
+  <client-only>
     <Map />
-  </ClientOnly>
+  </client-only>
   <Input
       class="search-bar"
       v-model="search"
+      name="search.street"
       placeholder="Pesquisar rua..."
       variant
   />
@@ -16,6 +17,19 @@ definePageMeta({
 });
 
 const search = ref('');
+let timeout: NodeJS.Timeout | null = null; //debounce
+const { $locationStore } = useNuxtApp();
+
+watch(search, ($new) => {
+  if($new) {
+    if(timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => {
+      $locationStore.searchLocation($new);
+    }, 500);
+  }
+});
 
 </script>
 

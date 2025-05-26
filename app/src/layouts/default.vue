@@ -1,5 +1,7 @@
 <template>
-  <LayoutHeader />
+  <client-only>
+    <LayoutHeader />
+  </client-only>
   <main @click="hideMenu">
     <slot />
   </main>

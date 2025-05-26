@@ -30,7 +30,7 @@
       />
     </Transition>
     <Transition>
-      <LayoutActions
+      <LayoutAdmActions
           v-if="$userStore.is_admin"
           v-show="showActions"
           @hideActions="showActions = false"
