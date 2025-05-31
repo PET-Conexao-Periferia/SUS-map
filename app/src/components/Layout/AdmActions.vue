@@ -4,7 +4,7 @@
     @click="emit('hideActions')"
   >
     <Button
-        @click="navigateTo({
+        @click="async () => navigateTo({
           name: 'location-create',
         })"
         variant-select

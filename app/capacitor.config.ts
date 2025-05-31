@@ -4,29 +4,9 @@ const config: CapacitorConfig = {
   appId: 'periferia.sus',
   appName: 'Periferia+SUS',
   server: {
-    url: 'https://192.168.0.10:3000',
+    url: 'https://smooth-beds-float.loca.lt/',
     cleartext: true
   },
-  plugins: {
-    CapacitorHttp: {
-      enabled: true
-    },
-    CapacitorGeolocation: {
-      enabled: true
-    },
-    CapacitorCookies: {
-      enabled: true
-    },
-    CapacitorBrowser: {
-      enabled: true
-    },
-    CapacitorApp: {
-      enabled: true
-    },
-    CapacitorDevice: {
-      enabled: true
-    },
-  }
 };
 
 export default config;

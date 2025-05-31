@@ -1,5 +1,8 @@
 <template>
-  <Form class="tw-mt-14">
+  <Form
+      class="tw-mt-14"
+      @submit.prevent="submit"
+  >
 
     <Logo />
 
@@ -23,13 +26,13 @@
           v-mask="'#####-###'"
       />
       <Input
-        v-else
-        label="Rua"
-        v-model="location.cep_or_street"
-        name="location.street"
-        type="text"
-        placeholder="Digite a rua..."
-        class="tw-mx-6 tw-mb-4"
+          v-else
+          label="Rua"
+          v-model="location.cep_or_street"
+          name="location.street"
+          type="text"
+          placeholder="Digite a rua..."
+          class="tw-mx-6 tw-mb-4"
       />
     </keep-alive>
 
@@ -37,14 +40,43 @@
       <client-only>
         <LazyMap
             :fullscreen="false"
+            isRegisterPoint
+            @pointSelected="(data: LocationType) => {
+              location.point.latitude = data.latitude;
+              location.point.longitude = data.longitude;
+            }"
         />
       </client-only>
     </div>
+    <Input
+        label="Foto"
+        name="location.point.photo"
+        type="file"
+        accept="image/*"
+        class="tw-mx-6 tw-mb-4 tw-text-wrap tw-w-[90%]"
+        @input="location.point.photo = $event.target.files[0]"
+    />
+    <div v-if="photoUrl">
+      <h3 class="tw-text-center">Imagem selecionada:</h3>
+      <img
+          :src="photoUrl"
+          alt="Imagem selecionada"
+          class="tw-max-w-[15rem] tw-block tw-mx-auto"
+      />
+    </div>
+
+    <Button
+      class="tw-block tw-mx-auto tw-mt-12"
+      type="submit"
+    >
+      Cadastrar local
+    </Button>
   </Form>
 </template>
 
 <script setup lang="ts">
-import { type LocationCreateType } from "~/types/Location";
+import { type LocationCreateType, type LocationType } from "~/types/Location";
+import LocationService from "~/services/LocationService";
 
 definePageMeta({
   name: 'location-create',
@@ -61,10 +93,32 @@ const location = ref<LocationCreateType>({
   }
 });
 
-watch(selectViaCep, ($new) => {
-  console.log($new);
+const photoUrl = computed(() => {
+  if(location.value.point.photo) {
+    try {
+      return URL.createObjectURL(location.value.point.photo);
+    } catch (e) {
+      return '';
+    }
+  }
+  return '';
 });
 
+async function submit() {
+  if(
+    location.value.point.latitude &&
+    location.value.point.longitude
+  ) {
+    try {
+      const res = await LocationService.create(location.value.point);
+      if(res) {
+        navigateTo('/');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -14,6 +14,8 @@
 <script setup lang="ts">
 definePageMeta({
   name: 'home',
+  keepalive: true,
+  key: 'home',
 });
 
 const search = ref('');

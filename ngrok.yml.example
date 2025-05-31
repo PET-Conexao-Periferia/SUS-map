@@ -1,5 +1,6 @@
-version: "2"
-authtoken: "insira seu token aqui!" #site para pegar seu token: https://dashboard.ngrok.com/get-started/setup/linux
+version: "3"
+agent:
+  authtoken: "adicione seu token aqui" #site para pegar seu token: https://dashboard.ngrok.com/get-started/setup/linux
 tunnels:
   app1:
     proto: http

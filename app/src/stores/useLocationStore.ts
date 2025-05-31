@@ -26,6 +26,7 @@ export default defineStore('location', () => {
                     points.value.push(value);
                 }
             }
+            localStorage.setItem('points', JSON.stringify(points.value));
         } catch(error) {
             return;
         }
