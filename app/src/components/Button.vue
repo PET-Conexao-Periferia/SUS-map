@@ -1,7 +1,7 @@
 <template>
   <button
     v-bind="$attrs"
-    :class="['button-default',variants[variant]]"
+    :class="[`button-${props.variants}`]"
   >
     <slot />
   </button>
@@ -12,20 +12,9 @@ const props = defineProps({
   variants: {
     type: String,
     default: "default",
-    validator: (value:string)=>["default", "allow", "deny","navigation"].includes(value)
-  },
-  computed:{
-    variants(){
-      return{
-        default: 'button-default',
-        navigation: 'button-navigation',
-        allow: 'button-allow',
-        deny: 'button-deny'
-      }
-    }
+    validator: (value:string)=>["default", "allow", "deny", "navigation"].includes(value)
   }
 });
-
 </script>
 
 <style scoped lang="scss">
@@ -43,6 +32,18 @@ const props = defineProps({
     background-color: #FFFFFF;
     color: #007FB6;
   }
+}
+
+.button-allow {
+
+}
+
+.button-deny {
+
+}
+
+.button-navigation {
+
 }
 
 .variant-select {

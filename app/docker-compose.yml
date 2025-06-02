@@ -13,7 +13,7 @@ services:
     tty: true
     stdin_open: true
     command: sh -c "yarn install && yarn dev --host"
-  app-host:
+  app-https:
     image: 'node:22-alpine'
     ports:
       - '3000:3000'

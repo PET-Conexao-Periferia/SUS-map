@@ -1,9 +1,9 @@
 <template>
   <label
-      :class="'tw-grid ' + $attrs.class + paiInput"
+      :class="'tw-grid ' + $attrs.class"
       :for="$attrs.id ? String($attrs.id) : undefined"
   >
-    <span>{{ label }}</span>
+    <span class="tw-pl-2">{{ label }}</span>
     <input
         v-bind="$attrs"
         @input="validate = true"

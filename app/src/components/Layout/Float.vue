@@ -1,19 +1,19 @@
 <template>
   <nav class="float-menu">
     <button @click="navigateTo('/')">
-      <img src="../../assets/img/mapa.svg"><br>
+      <img src="~/assets/img/mapa.svg" alt="Icone de mapa"><br>
       <span>Mapa</span>
     </button>
     <button>
-      <img src="../../assets/img/campanhas.svg"><br>
+      <img src="~/assets/img/campanhas.svg" alt="Icone de campanhas"><br>
       <span>Campanhas</span>
     </button>
     <button @click="showMoreOptions()">
-      <img src="../../assets/img/list.svg"><br>
+      <img src="~/assets/img/list.svg" alt="Icone de mais opções"><br>
       <span>Mais</span>
     </button>
   </nav>
-  <nav class="more-options" v-if="showMore" ref="moreContent">
+  <nav class="more-options" v-if="showMore" :ref="moreContent">
     <button
         @click="navigateTo('/account/login')"
         v-if="$userStore.data == null"
@@ -23,52 +23,38 @@
     <Separator v-if="$userStore.data !== null"/>
     <button
         v-if="$userStore.data !== null"
-        @click="AuthService.logout; selectOptions()"
-
+        @click="AuthService.logout"
     >
       Sair
     </button>
   </nav>
-  <slot/>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import AuthService from "~/services/AuthService";
 
-export default {
-  name:"Float",
-  computed: {
-    AuthService() {
-      return AuthService
-    }
-  },
-  data(){
-    return{
-      showMore: false,
-    }
-  },
-  methods:{
-    showMoreOptions(){
-      this.showMore = !this.showMore
-    }
-  },
-  hideMoreOptions(event: MouseEvent){
-    const menu= this.$refs.moreContent as HTMLElement;
-    if (menu && !menu.contains(event.target as Node)){
-      this.showMore = false
-    }
-  },
-  selectOptions(){
-    this.showMore = !this.showMore
-  },
-  mounted() {
-    document.addEventListener("click",this.hideMoreOptions);
-    document.addEventListener("click",this.hideMoreOptions);
-  },
-  beforeUpdate() {
-    document.removeEventListener("click",this.hideMoreOptions);
+const showMore = ref(false);
+const moreContent = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  document.addEventListener("click", hideMoreOptions);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("click", hideMoreOptions);
+});
+
+function showMoreOptions() {
+  showMore.value = !showMore.value;
+}
+
+function hideMoreOptions(event: MouseEvent) {
+  const menu = moreContent.value as HTMLElement;
+  if (menu && !menu.contains(event.target as Node)){
+    showMore.value = false;
   }
 }
+
 </script>
 
 <style scoped>

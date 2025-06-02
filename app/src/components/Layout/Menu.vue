@@ -15,7 +15,7 @@
       Campanhas
     </Button>
     <Button
-        v-if="!$userStore?.is_admin"
+        v-if="!$userStore?.data"
         @click="navigateTo({
             name: 'register'
           })"
@@ -24,7 +24,7 @@
       Cadastro
     </Button>
     <Button
-        v-if="!$userStore?.is_admin"
+        v-if="!$userStore?.data"
         @click="navigateTo({
             name: 'login'
           })"
@@ -33,7 +33,7 @@
       Entrar
     </Button>
     <Button
-        v-if="$userStore?.is_admin"
+        v-if="$userStore?.data"
         @click="AuthService.logout"
         variant-select
     >
