@@ -11,7 +11,7 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 form {
   display: grid;
   grid-auto-rows: auto;

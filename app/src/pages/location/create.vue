@@ -36,7 +36,7 @@
       />
     </keep-alive>
 
-    <div class="tw-h-96 tw-mx-auto tw-p-6">
+    <div class="tw-h-96 tw-my-4">
       <client-only>
         <LazyMap
             :fullscreen="false"
@@ -66,15 +66,10 @@
     </div>
 
     <Button
-    <<<<<<< HEAD
-    class="tw-block tw-mx-auto tw-mt-12"
-    type="submit"
-    =======
-    class="tw-block tw-mx-auto tw-mt-12"
-    type="submit"
-    >>>>>>> feature/Location
+        class="tw-block tw-mx-auto tw-mt-12"
+        type="submit"
     >
-    Cadastrar local
+      Cadastrar local
     </Button>
   </Form>
 </template>
