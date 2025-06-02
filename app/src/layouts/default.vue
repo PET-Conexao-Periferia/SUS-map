@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 const { $userStore } = useNuxtApp();
-function hideMenu() {
+async function hideMenu() {
   document.dispatchEvent(new Event('hideMenu'));
   if($userStore.is_admin) {
     document.dispatchEvent(new Event('hideActions'));

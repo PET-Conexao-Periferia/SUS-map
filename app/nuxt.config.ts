@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         server: {
             allowedHosts: true,
         },
-        },
+    },
     modules: [
         '@pinia/nuxt',
         '@nuxtjs/leaflet',

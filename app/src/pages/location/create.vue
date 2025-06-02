@@ -66,10 +66,15 @@
     </div>
 
     <Button
-        class="tw-block tw-mx-auto tw-mt-12"
-        type="submit"
+    <<<<<<< HEAD
+    class="tw-block tw-mx-auto tw-mt-12"
+    type="submit"
+    =======
+    class="tw-block tw-mx-auto tw-mt-12"
+    type="submit"
+    >>>>>>> feature/Location
     >
-      Cadastrar local
+    Cadastrar local
     </Button>
   </Form>
 </template>

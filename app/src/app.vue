@@ -17,8 +17,14 @@ if(token.value) {
   }
 }
 
-onMounted(() => {
+onBeforeMount(async () => {
   const { $axios } = useNuxtApp();
   $axios.get('/sanctum/csrf-cookie');
-})
+
+  const points = localStorage.getItem('points');
+  if(points) {
+    const { $locationStore } = useNuxtApp();
+    $locationStore.points = JSON.parse(points);
+  }
+});
 </script>

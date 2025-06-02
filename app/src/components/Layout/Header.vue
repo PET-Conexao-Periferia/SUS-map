@@ -1,12 +1,15 @@
 <template>
   <header>
-    <div class="tw-flex tw-justify-between" style="width: 100vw">
+    <div
+        class="tw-flex tw-justify-between"
+        style="width: 100vw"
+    >
       <img
           src="~/assets/img/menu_sanduíche.svg"
           alt="ícone do menu"
           width="32px" height="32px"
           class="tw-m-4"
-          @click="() => {
+          @click="async () => {
             showMenu = !showMenu;
             showActions = false;
           }"
@@ -16,7 +19,7 @@
         alt="ícone de ações do administrador"
         width="32px" height="32px"
         class="tw-m-4"
-        @click="() => {
+        @click="async () => {
           showActions = !showActions;
           showMenu = false;
         }"
@@ -26,14 +29,14 @@
     <Transition>
       <LayoutMenu
           v-show="showMenu"
-          @hideMenu="showMenu = false"
+          @hideMenu="async () => showMenu = false"
       />
     </Transition>
     <Transition>
       <LayoutAdmActions
           v-if="$userStore.is_admin"
           v-show="showActions"
-          @hideActions="showActions = false"
+          @hideActions="async () => showActions = false"
       />
     </Transition>
   </header>
@@ -44,11 +47,11 @@ const { $userStore } = useNuxtApp();
 const showMenu = ref(false);
 const showActions = ref(false);
 
-onMounted(() => {
-  document.addEventListener('hideMenu', () => {
+onBeforeMount(async () => {
+  document.addEventListener('hideMenu', async () => {
     showMenu.value = false;
   });
-  document.addEventListener('hideActions', () => {
+  document.addEventListener('hideActions', async () => {
     showActions.value = false;
   });
 });

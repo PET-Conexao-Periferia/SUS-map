@@ -1,10 +1,10 @@
 <template>
-<form
-    v-bind="$attrs"
-    class="tw-py-12 tw-mx-5"
->
-  <slot />
-</form>
+  <form
+      v-bind="$attrs"
+      class="tw-py-12 tw-mx-5"
+  >
+    <slot />
+  </form>
 </template>
 
 <script setup lang="ts">
