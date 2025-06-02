@@ -9,10 +9,8 @@ export default class LocationService {
                     'Content-Type': location.photo ? 'multipart/form-data' : 'application/json',
                 }
             });
-            console.log(data);
             return true;
         } catch(e) {
-            console.log(e);
             return false;
         }
     }

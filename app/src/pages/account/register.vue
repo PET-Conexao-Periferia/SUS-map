@@ -113,7 +113,7 @@ async function submit() {
         navigateTo('/');
       }
     } catch (e: AxiosResponse | AxiosError | any) {
-      console.log(e);
+      //
     }
   }
 }

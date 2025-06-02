@@ -115,7 +115,7 @@ async function submit() {
         navigateTo('/');
       }
     } catch (e) {
-      console.log(e);
+      //
     }
   }
 }

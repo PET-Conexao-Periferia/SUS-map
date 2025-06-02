@@ -20,6 +20,7 @@
     "@capacitor/device": "^7.0.1",
     "@capacitor/geolocation": "^7.1.2",
     "@capacitor/ios": "^7.2.0",
+    "@nuxt/image": "1.10.0",
     "@nuxtjs/leaflet": "^1.2.6",
     "@pinia/nuxt": "^0.9.0",
     "@vite-pwa/nuxt": "1.0.0",

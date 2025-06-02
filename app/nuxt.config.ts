@@ -23,11 +23,7 @@ export default defineNuxtConfig({
             allowedHosts: true,
         },
     },
-    modules: [
-        '@pinia/nuxt',
-        '@nuxtjs/leaflet',
-        '@vite-pwa/nuxt'
-    ],
+    modules: ['@pinia/nuxt', '@nuxtjs/leaflet', '@vite-pwa/nuxt', '@nuxt/image'],
     pinia: {
         storesDirs: [
             '~/stores/**/*.ts',

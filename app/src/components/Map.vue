@@ -18,24 +18,24 @@
           v-for="point in $locationStore.points" :key="point.id"
           :lat-lng="[point.latitude, point.longitude]"
       >
-        <LTooltip
-            class="tw-max-w-40 tw-max-h-40"
-            v-show="point.photo"
+        <LPopup
+          class="tw-max-w-[250px] tw-max-h-[270px]"
         >
-          <!--
-          parece estranho um v-show e um v-if, explicação:
-          o v-show é apenas para na exibição não aparecer um quadrado grande totalmente em branco
-          e o v-if para exibir a imagem apenas se houver uma foto
-          caso utilizar o v-if direto no tooltip a lib fica bugada e não exibi os pontos no mapa
-          -->
-          <div v-if="point.photo">
-            <img
-              :src="imagePoint(String(point.photo))"
+          <NuxtImg
+              :src="imagePoint(point?.photo)"
               alt="Foto do local"
-              width="100%"
-            />
-          </div>
-        </LTooltip>
+              width="200px"
+              height="200px"
+              class="tw-block tw-mx-auto tw-mt-2"
+          />
+          <br />
+          <Button
+              @click="navigateTo(`/location/${point.id}`)"
+              class="tw-block tw-mx-auto"
+          >
+            Ver mais detalhes do local
+          </Button>
+        </LPopup>
       </LMarker>
     </LMap>
   </div>
@@ -134,9 +134,11 @@ async function pointSelect(event: any): Promise<void> {
   }
 }
 
-function imagePoint(image: string): string {
-  console.log(import.meta.env.VITE_API_URL + '/storage/' + image);
-  return import.meta.env.VITE_API_URL + '/storage/' + image;
+function imagePoint(image: string | undefined | null | File): string {
+  if(image) {
+    return import.meta.env.VITE_API_URL + '/storage/' + String(image);
+  }
+  return '/Logo.svg';
 }
 
 const fullscreenW = computed((): string => props.fullscreen ? '100vw' : '100%');

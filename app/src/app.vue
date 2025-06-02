@@ -12,7 +12,6 @@ if(token.value) {
   try {
     user.fetch();
   } catch(e) {
-    console.log(e);
     token.value = null;
   }
 }
@@ -27,4 +26,5 @@ onBeforeMount(async () => {
     $locationStore.points = JSON.parse(points);
   }
 });
+
 </script>
