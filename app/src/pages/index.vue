@@ -7,8 +7,8 @@
       v-model="search"
       name="search.street"
       placeholder="Pesquisar rua..."
-      variant
   />
+  <LayoutFloat/>
 </template>
 
 <script setup lang="ts">
@@ -36,8 +36,10 @@ watch(search, ($new) => {
 <style lang="scss" scoped>
 .search-bar {
   position: fixed;
-  bottom: 2em;
-  left: 1em;
-  right: 1em;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 80vw;
+  max-width: 80vw;
 }
 </style>

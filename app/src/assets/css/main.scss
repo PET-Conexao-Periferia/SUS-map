@@ -6,13 +6,9 @@ html, body{
 }
 
 body {
-  background-image: url('~/assets/img/background.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
+  background-color: #003087;
   min-height: 100vh;
-  font-size: 14px;
+  font-size: 1rem;
   font-family: 'Avenir LT Pro', sans-serif;
 }
 
@@ -24,24 +20,4 @@ body {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
-}
-
-nav {
-  background-color: #CCD2FF;
-  border-radius: 10px;
-
-  display:flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-self: flex-start;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1em;
-
-  position: absolute;
-  width: 15em;
-  margin: 0;
-  padding: 2em 0;
-
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 }

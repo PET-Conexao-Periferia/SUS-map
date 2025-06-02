@@ -1,8 +1,8 @@
 <template>
   <img
-      src="~/assets/img/logo-pet-horizontal.svg"
-      alt="logo do PET - Conexão Periferia"
-      :class="'tw-block tw-mx-auto tw-mb-14 ' + props.class"
+      src="~/assets/img/Logo.svg"
+      alt="Logo do Periferia + Saúde"
+      :class="'tw-block tw-mx-auto tw-mb-8 ' + props.class"
       v-bind="$attrs"
   />
 </template>

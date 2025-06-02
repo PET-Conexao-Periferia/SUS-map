@@ -29,10 +29,18 @@
 
   <Button
       type="submit"
-      class="tw-block tw-mx-auto"
+      class="tw-block tw-mx-auto tw-mt-5"
   >
     Login
   </Button>
+
+  <NuxtLink
+      to="/account/register"
+      class="tw-block tw-mx-auto tw-mt-5"
+  >
+    Cadastre-se
+  </NuxtLink>
+
 </Form>
 </template>
 

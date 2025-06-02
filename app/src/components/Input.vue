@@ -1,6 +1,6 @@
 <template>
   <label
-      :class="'tw-grid ' + $attrs.class"
+      :class="'tw-grid ' + $attrs.class + paiInput"
       :for="$attrs.id ? String($attrs.id) : undefined"
   >
     <span>{{ label }}</span>
@@ -52,30 +52,35 @@ const inputValue = computed({
     emit('update:modelValue', value);
   }
 });
-const textColor = computed(() => validate.value && props.error ? '#CD191E' : '');
+const labelColor = computed(() => validate.value && props.error ? '#CD191E' : '');
+const textColor = computed(() => validate.value && props.error ? '#CD191E' : '#6B7280');
 const borderColor = computed(() => validate.value && props.error ? '#CD191E' : '#2D2F46');
 </script>
 
 <style scoped>
 input {
-  height: 35px;
-  border-width: 0.5px;
-  border-color: v-bind(borderColor);
-  border-style: solid;
-  border-radius: 10px;
+  height: 40px;
+  width: 100%;
+  border: none;
+  border-radius: 32px;
   background-color: #FEFEFE;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  padding-left: 10px;
+  padding: 1em;
   color: v-bind(textColor);
   margin: 0;
+  box-sizing: border-box;
 }
 input::placeholder {
   color: v-bind(textColor);
 }
+input:focus{
+  outline-color: #003087;
+}
+
 label {
-  color: v-bind(textColor);
+  margin: 0.5em;
+  color: v-bind(labelColor);
 }
 .variant-select {
-  background-color: #CCD2FF;
+  background-color:  #FEFEFE;
 }
 </style>

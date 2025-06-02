@@ -2,9 +2,9 @@
 <Form @submit.prevent="submit" class="tw-mt-24">
   <Logo />
   <p
-      class="tw-px-3 tw-mt-12 tw-mb-9"
+      class="tw-px-3 tw-mt-0 tw-mb-9"
   >
-    Faça seu cadastro e receba notificações sobra campanhas de vacinação!
+    Faça seu cadastro para receber notificações sobre campanhas de vacinação!
   </p>
 
   <Input
@@ -32,7 +32,7 @@
   </Input>
 
   <Input
-      label="Senha"
+      label="Senha:"
       v-model="user.password"
       name="user.password"
       type="password"
@@ -44,7 +44,7 @@
   </Input>
 
   <Input
-      label="Confirmar Senha"
+      label="Confirmar Senha:"
       v-model="user.password_confirmation"
       name="user.password_confirmation"
       type="password"
@@ -55,9 +55,16 @@
     <ErrorMessage message-error="Senha não corresponde" />
   </Input>
 
-  <Button type="submit" class="tw-block tw-mx-auto tw-mt-12">
+  <Button type="submit" class="tw-block tw-mx-auto tw-mt-5">
     Cadastro
   </Button>
+
+  <NuxtLink
+      to="/account/login"
+      class="tw-block tw-mx-auto tw-mt-5"
+  >
+    Fazer login
+  </NuxtLink>
 </Form>
 </template>
 

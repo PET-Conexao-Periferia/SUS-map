@@ -1,7 +1,7 @@
 <template>
   <button
     v-bind="$attrs"
-    :class="{'variant-select': props.variantSelect}"
+    :class="['button-default',variants[variant]]"
   >
     <slot />
   </button>
@@ -9,23 +9,34 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  variantSelect: {
-    type: Boolean,
-    default: false,
+  variants: {
+    type: String,
+    default: "default",
+    validator: (value:string)=>["default", "allow", "deny","navigation"].includes(value)
+  },
+  computed:{
+    variants(){
+      return{
+        default: 'button-default',
+        navigation: 'button-navigation',
+        allow: 'button-allow',
+        deny: 'button-deny'
+      }
+    }
   }
 });
 
 </script>
 
 <style scoped lang="scss">
-button {
-  background-color: #007FB6;
+.button-default {
+  background-color: #003087;
   color: #FFFFFF;
   border: none;
-  line-height: 15px;
-  border-radius: 10px;
-  width: 145px;
+  border-radius: 3em;
+  width: 80%;
   height: 40px;
+  box-sizing: border-box;
 
 
   &:active {
@@ -39,7 +50,7 @@ button {
   color: #000000;
 
   &:active {
-    background-color: #007FB6;
+    background-color: #003087;
     color: #FFFFFF;
   }
 }
