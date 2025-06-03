@@ -25,7 +25,7 @@ watch(search, ($new) => {
 
 <style scoped lang="scss">
 input {
-  height: 40px;
+  height: 50px;
   width: 100%;
   border: none;
   border-radius: 32px;

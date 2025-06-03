@@ -1,7 +1,7 @@
 <template>
   <form
       v-bind="$attrs"
-      class="tw-py-12 tw-mx-5"
+      class="tw-py-12 tw-mx-5 tw-mt-14"
   >
     <slot />
   </form>

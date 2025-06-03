@@ -1,5 +1,5 @@
 <template>
-<Form @submit.prevent="submit" class="tw-mt-40">
+<Form @submit.prevent="submit">
 
   <Logo />
 
@@ -49,6 +49,7 @@ import AuthService from "~/services/AuthService";
 import { loginSchema } from "~/validations/userSchemaValidation";
 
 definePageMeta({
+  showHeader: true,
   name: 'login'
 });
 

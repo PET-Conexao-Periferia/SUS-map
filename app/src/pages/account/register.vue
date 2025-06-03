@@ -74,6 +74,7 @@ import AuthService from "~/services/AuthService";
 import { registerSchema } from "~/validations/userSchemaValidation";
 
 definePageMeta({
+  showHeader: true,
   name: 'register',
 });
 
@@ -138,3 +139,8 @@ function validated() {
   return result.success;
 }
 </script>
+<style scoped lang="scss">
+Form{
+  transform: translateY(-10%);
+}
+</style>

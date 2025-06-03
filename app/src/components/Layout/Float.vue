@@ -15,6 +15,16 @@
   </nav>
   <nav class="more-options" v-if="showMore" :ref="moreContent">
     <button
+        v-if="$userStore.is_admin"
+        @click="async () => navigateTo({
+          name: 'location-create',
+        })"
+        variant-select
+    >
+      Adicionar local
+    </button>
+    <Separator v-if="$userStore.data == null && $userStore.is_admin"/>
+    <button
         @click="navigateTo('/account/login')"
         v-if="$userStore.data == null"
     >

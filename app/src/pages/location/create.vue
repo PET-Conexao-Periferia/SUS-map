@@ -1,6 +1,5 @@
 <template>
   <Form
-      class="tw-mt-14"
       @submit.prevent="submit"
   >
 
@@ -79,6 +78,7 @@ import { type LocationCreateType, type LocationType } from "~/types/Location";
 import LocationService from "~/services/LocationService";
 
 definePageMeta({
+  showHeader:true,
   name: 'location-create',
 });
 

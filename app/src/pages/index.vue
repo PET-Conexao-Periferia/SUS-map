@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 definePageMeta({
+  showHeader: false,
   name: 'home',
   keepalive: true,
   key: 'home',
