@@ -32,7 +32,7 @@
   </Input>
 
   <Input
-      label="Senha:"
+      label="Senha"
       v-model="user.password"
       name="user.password"
       type="password"
@@ -44,7 +44,7 @@
   </Input>
 
   <Input
-      label="Confirmar Senha:"
+      label="Confirmar Senha"
       v-model="user.password_confirmation"
       name="user.password_confirmation"
       type="password"
