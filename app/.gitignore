@@ -5,6 +5,8 @@
 .nitro
 .cache
 dist
+android
+ios
 
 # Node dependencies
 node_modules
@@ -22,3 +24,7 @@ logs
 .env
 .env.*
 !.env.example
+
+*.pem
+
+www

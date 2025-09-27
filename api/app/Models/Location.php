@@ -2,28 +2,32 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Location extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'latitude',
         'longitude',
         'photo',
     ];
 
-    public function campaign()
+    public function description(): HasOne
     {
-        return $this->belongsToMany(Campaign::class);
+        return $this->hasOne(Description::class,  'location_id');
     }
-
-    public function description()
+    public function campaign(): BelongsToMany
     {
-        return $this->hasOne(Description::class);
+        return $this->belongsToMany(Campaign::class, 'locations_campaigns', 'location_id', 'campaigns_id');
     }
-
-    public function services()
+    public function services(): HasMany
     {
-        return $this->belongsToMany(Service::class);
+        return $this->hasMany(Service::class);
     }
 }

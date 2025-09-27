@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->string('photo');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->string('photo')
+                ->nullable();
             $table->timestamps();
         });
     }

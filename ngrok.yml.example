@@ -1,0 +1,11 @@
+version: "3"
+agent:
+  authtoken: "insira seu token aqui!" #site para pegar seu token: https://dashboard.ngrok.com/get-started/setup/linux
+
+tunnels:
+  app1:
+    proto: http
+    addr: 80
+  app2:
+    proto: http
+    addr: 3000
