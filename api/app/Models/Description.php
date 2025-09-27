@@ -13,7 +13,6 @@ class Description extends Model
     protected $fillable = [
         'name',
         'contact',
-        'openingTimes_id',
     ];
 
     public function location(): BelongsTo

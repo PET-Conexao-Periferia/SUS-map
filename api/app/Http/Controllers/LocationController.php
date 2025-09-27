@@ -7,6 +7,7 @@ use App\Http\Requests\Location\StoreLocationRequest;
 use App\Http\Requests\Location\UpdateLocationRequest;
 use Illuminate\Http\Request;
 use \App\Models\Location;
+use Illuminate\Support\Facades\Storage;
 
 class LocationController extends Controller
 {
@@ -18,12 +19,14 @@ class LocationController extends Controller
         $validated = $request->validated();
 
         //formula utilizada: Distância = raiz quadrada de (x2 - x1)² + (y2 - y1)²
-        $locations = Location::selectRaw(
-            '*, SQRT(POW(latitude - ?, 2) + POW(longitude - ?, 2)) as distance',
+        $locations = Location::select('id', 'photo', 'latitude', 'longitude')
+            ->selectRaw(
+            'SQRT(POW(latitude - ?, 2) + POW(longitude - ?, 2)) as distance',
             [$validated['latitude'], $validated['longitude']]
         )
             ->orderBy('distance')
-            ->paginate();
+            ->take(45)
+            ->get();
 
         return response($locations, 200);
     }
@@ -59,8 +62,6 @@ class LocationController extends Controller
     public function show(Location $location)
     {
         $location->load('campaigns', 'description', 'services');
-        $location->description();
-        $location->services();
         response($location, 200);
     }
 
@@ -73,8 +74,8 @@ class LocationController extends Controller
         if(isset($validated['photo'])) {
             $photoPath = $validated['photo']->store('photos', 'public');
             $validated['photo'] = $photoPath;
+            Storage::delete('public/' . $location->photo);
         }
-
         $location->update($validated);
         response($location, 200);
     }

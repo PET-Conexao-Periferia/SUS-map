@@ -1,0 +1,9 @@
+node_modules/
+.nuxt/
+.output/
+.idea/
+package-lock.json
+README.md
+docker-compose.yml
+.gitignore
+src/**/*.d.ts
