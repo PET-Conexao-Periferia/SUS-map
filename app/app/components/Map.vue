@@ -37,7 +37,6 @@
           </Button>
         </LPopup>
       </LMarker>
-    <!-- markers for search results (click to select a result) -->
     <LMarker
       v-for="(pt, idx) in $locationStore.searchPoints"
       :key="`search-${idx}`"
@@ -51,6 +50,7 @@
 <script setup lang="ts">
 import L from 'leaflet';
 import type { LocationType } from "~/types/Location";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   fullscreen: {
@@ -70,6 +70,7 @@ const emits = defineEmits([
 const { $locationStore } = useNuxtApp();
 const map = ref<any | null>(null);
 let pointSelected: L.Marker | null = null;
+const router = useRouter();
 
 const onMapReady = async (leafletObject: any): Promise<void> => {
   map.value = leafletObject;
@@ -97,7 +98,6 @@ const onMapReady = async (leafletObject: any): Promise<void> => {
   });
 }
 
-// Watch searchPoints specifically so we react when address search returns results
 watch(() => $locationStore.searchPoints, async ($new) => {
   if ($new && map.value && $new.length > 0) {
     const bounds = L.latLngBounds($new as [number, number][]);
@@ -153,6 +153,10 @@ function imagePoint(image: string | undefined | null | File): string {
 
 const fullscreenW = computed((): string => props.fullscreen ? '100vw' : '100%');
 const fullscreenH = computed((): string => props.fullscreen ? '100vh' : '100%');
+
+function navigateTo(path: string) {
+  void router.push(path);
+}
 </script>
 
 <style scoped lang="scss">
