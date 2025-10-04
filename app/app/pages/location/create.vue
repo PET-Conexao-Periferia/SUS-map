@@ -11,25 +11,25 @@
     </label>
 
     <keep-alive>
-      <Input
-        v-if="selectViaCep"
-        label="CEP"
-        v-model="location.cep_or_street"
-        name="location.cep"
-        type="text"
-        placeholder="Digite o cep..."
-        class="tw-mx-6 tw-mb-4"
-        v-mask="'#####-###'"
-      />
-      <Input
-        v-else
-        label="Rua"
-        v-model="location.cep_or_street"
-        name="location.street"
-        type="text"
-        placeholder="Digite a rua..."
-        class="tw-mx-6 tw-mb-4"
-      />
+        <Input
+          v-if="selectViaCep"
+          label="CEP"
+          v-model="location.cep_or_street"
+          name="location.cep"
+          type="text"
+          placeholder="Digite o cep..."
+          class="tw-mx-6 tw-mb-4"
+          v-mask="'#####-###'"
+        />
+        <Input
+          v-else
+          label="Rua"
+          v-model="location.cep_or_street"
+          name="location.street"
+          type="text"
+          placeholder="Digite a rua..."
+          class="tw-mx-6 tw-mb-4"
+        />
     </keep-alive>
 
     <div class="tw-h-96 tw-my-4">
@@ -88,9 +88,10 @@ const location = ref<LocationCreateType>({
 });
 
 const photoUrl = computed(() => {
-  if (location.value.point.photo) {
+  const photo = location.value.point.photo;
+  if (photo && typeof photo !== "string") {
     try {
-      return URL.createObjectURL(location.value.point.photo);
+      return URL.createObjectURL(photo);
     } catch (e) {
       return "";
     }
