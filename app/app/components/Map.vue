@@ -37,13 +37,20 @@
           </Button>
         </LPopup>
       </LMarker>
+    <LMarker
+      v-for="(pt, idx) in $locationStore.searchPoints"
+      :key="`search-${idx}`"
+      :lat-lng="pt"
+      @click="() => onSearchMarkerClick(pt)"
+    />
     </LMap>
   </div>
 </template>
 
 <script setup lang="ts">
-import L, { type Map } from 'leaflet';
+import L from 'leaflet';
 import type { LocationType } from "~/types/Location";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   fullscreen: {
@@ -61,10 +68,11 @@ const emits = defineEmits([
 ]);
 
 const { $locationStore } = useNuxtApp();
-const map = ref<Map | null>(null);
+const map = ref<any | null>(null);
 let pointSelected: L.Marker | null = null;
+const router = useRouter();
 
-const onMapReady = async (leafletObject: Map): Promise<void> => {
+const onMapReady = async (leafletObject: any): Promise<void> => {
   map.value = leafletObject;
 
   leafletObject.locate({
@@ -72,7 +80,7 @@ const onMapReady = async (leafletObject: Map): Promise<void> => {
     maxZoom: 16
   });
 
-  leafletObject.on('locationfound', async (e) => {
+  leafletObject.on('locationfound', async (e: any) => {
     $locationStore.current.longitude = e.latlng.lng;
     $locationStore.current.latitude = e.latlng.lat;
     $locationStore.fetchNearbyPoints();
@@ -90,17 +98,15 @@ const onMapReady = async (leafletObject: Map): Promise<void> => {
   });
 }
 
-watch($locationStore, async ({ searchPoints: $new }) => {
-  if($new) {
-    if(map.value && $new.length > 0) {
-      const bounds = L.latLngBounds($new);
-      map.value.fitBounds(bounds, {
-        padding: [50, 50],
-        maxZoom: 16,
-        duration: 1,
-        animate: true
-      });
-    }
+watch(() => $locationStore.searchPoints, async ($new) => {
+  if ($new && map.value && $new.length > 0) {
+    const bounds = L.latLngBounds($new as [number, number][]);
+    map.value.fitBounds(bounds, {
+      padding: [50, 50],
+      maxZoom: 16,
+      duration: 1,
+      animate: true,
+    });
   }
 }, {
   deep: true,
@@ -134,6 +140,10 @@ async function pointSelect(event: any): Promise<void> {
   }
 }
 
+function onSearchMarkerClick(pt: [number, number]) {
+  emits('pointSelected', { latitude: pt[0], longitude: pt[1] } as LocationType);
+}
+
 function imagePoint(image: string | undefined | null | File): string {
   if(image) {
     return import.meta.env.VITE_API_URL + '/storage/' + String(image);
@@ -143,6 +153,10 @@ function imagePoint(image: string | undefined | null | File): string {
 
 const fullscreenW = computed((): string => props.fullscreen ? '100vw' : '100%');
 const fullscreenH = computed((): string => props.fullscreen ? '100vh' : '100%');
+
+function navigateTo(path: string) {
+  void router.push(path);
+}
 </script>
 
 <style scoped lang="scss">

@@ -39,8 +39,16 @@ export default defineStore('location', () => {
             },
         });
 
-        if(data && Array.isArray(data) && data.length > 0) {
-            searchPoints.value = data.map(point => [point.lat, point.lon]);
+        // debug: log the returned data so we can confirm keys and values
+        // (remove this log in production)
+        // eslint-disable-next-line no-console
+        console.log('searchLocation response:', data);
+
+        if (data && Array.isArray(data) && data.length > 0) {
+            // ensure we map to [lat, lon] — adjust keys if your backend uses different names
+            searchPoints.value = data.map(point => [point.lat ?? point.latitude ?? 0, point.lon ?? point.longitude ?? 0]);
+        } else {
+            searchPoints.value = [];
         }
     }
 

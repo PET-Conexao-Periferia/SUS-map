@@ -2,7 +2,7 @@ export type LocationType = {
     id?: number,
     latitude: number,
     longitude: number,
-    photo?: string | File,
+    photo?: string | File | null,
     distance?: number
 }
 
