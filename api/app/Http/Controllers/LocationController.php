@@ -53,7 +53,7 @@ class LocationController extends Controller
                 $location->services()->createMany($validated['services']);
         }
 
-        response($location, 201);
+         return response()->json($location, 201);
     }
 
     /**

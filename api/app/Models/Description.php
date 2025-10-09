@@ -13,7 +13,10 @@ class Description extends Model
     protected $fillable = [
         'name',
         'contact',
+        'location_id'
     ];
+    
+    public $incrementing = false;
 
     public function location(): BelongsTo
     {
