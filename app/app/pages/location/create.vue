@@ -62,7 +62,7 @@
     </div>
 
     <Button class="tw-block tw-mx-auto tw-mt-12" type="submit">
-      Cadastrar local
+      Próximo: Descrição do Local
     </Button>
   </Form>
 </template>

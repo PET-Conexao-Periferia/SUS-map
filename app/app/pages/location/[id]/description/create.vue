@@ -18,7 +18,6 @@ const locationId = route.params.id
 const form = ref({ name: '', contact: '' })
 
 async function submit() {
-  // ensure we have a valid location id
   const id = Number(locationId)
   if (!Number.isInteger(id) || id <= 0) {
     console.error('ID do location inválido ao criar descrição:', locationId)

@@ -19,7 +19,7 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 const locationId = route.params.id
-const descriptionId = route.params.descriptionId
+const descriptionId = Number(route.params.descriptionId)
 
 const form = ref({
   street: '',
@@ -31,9 +31,13 @@ const form = ref({
 
 async function submit() {
   if (!descriptionId) return
-  const res = await AddressService.create(descriptionId as string, form.value)
-  if (res?.id) {
+  const res = await AddressService.create(descriptionId, form.value)
+
+  if (res?.id || res?.description_id) {
+    console.log('Endereço criado:', res)
     await router.push('/')
+  } else {
+    console.warn('Endereço criado, mas sem id retornado:', res)
   }
 }
 </script>
