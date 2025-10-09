@@ -50,7 +50,7 @@
       type="file"
       accept="image/*"
       class="tw-mx-6 tw-mb-4 tw-text-wrap tw-w-[90%]"
-      @input="location.point.photo = $event.target.files[0]"
+      @change="handlePhotoChange"
     />
     <div v-if="photoUrl">
       <h3 class="tw-text-center">Imagem selecionada:</h3>
@@ -70,6 +70,7 @@
 <script setup lang="ts">
 import { type LocationCreateType, type LocationType } from "~/types/Location";
 import LocationService from "~/services/LocationService";
+import { ref, onUnmounted } from 'vue';
 
 definePageMeta({
   showHeader: true,
@@ -87,17 +88,43 @@ const location = ref<LocationCreateType>({
   },
 });
 
-const photoUrl = computed(() => {
-  const photo = location.value.point.photo;
-  if (photo && typeof photo !== "string") {
-    try {
-      return URL.createObjectURL(photo);
-    } catch (e) {
-      return "";
-    }
+let currentObjectUrl: string | null = null
+const photoUrl = ref<string | null>(null)
+
+function handlePhotoChange(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+
+  if (!file) return;
+
+  location.value = {
+    ...location.value,
+    point: {
+      ...location.value.point,
+      photo: file,
+    },
+  };
+
+  if (currentObjectUrl) {
+    try { URL.revokeObjectURL(currentObjectUrl) } catch (e) { /* ignore */ }
+    currentObjectUrl = null
   }
-  return "";
-});
+
+  try {
+    const url = URL.createObjectURL(file)
+    currentObjectUrl = url
+    photoUrl.value = url
+  } catch (e) {
+    photoUrl.value = null
+  }
+}
+
+onUnmounted(() => {
+  if (currentObjectUrl) {
+    try { URL.revokeObjectURL(currentObjectUrl) } catch (e) { /* ignore */ }
+    currentObjectUrl = null
+  }
+})
 
 async function submit() {
   if (location.value.point.latitude && location.value.point.longitude) {
@@ -108,7 +135,7 @@ async function submit() {
         navigateTo(`/location/${res.id}/description/create`);
       }
     } catch (e) {
-      //
+       console.error(e);
     }
   }
 }
