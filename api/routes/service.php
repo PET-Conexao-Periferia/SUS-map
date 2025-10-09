@@ -10,9 +10,11 @@ Route::prefix('services')
         Route::middleware(['auth:sanctum', 'ability:user-admin'])
             ->group(function () {
 
-                Route::post('location/{location}', 'store');
-
+                Route::post('', 'store');
+                Route::get('', 'index');
                 Route::put('{service}', 'update');
                 Route::delete('{service}', 'destroy');
+             // Route::post('location/{location}', 'store');
+
             });
     });

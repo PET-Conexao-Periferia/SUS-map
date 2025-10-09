@@ -8,15 +8,23 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function store(Request $request, $locationId)
+
+    public function index()
     {
-        $location = Location::findOrFail($locationId);
+        $services = Service::all();
+        return response()->json($services, 200);
+    }
+
+    public function store(Request $request) //, $locationId
+    {
+        // $location = Location::findOrFail($locationId);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        $service = $location->services()->create($validated);
+        // $service = $location->services()->create($validated);
+        $service = Service::create($validated);
 
         return response()->json($service, 201);
     }
