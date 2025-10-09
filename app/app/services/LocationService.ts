@@ -9,9 +9,10 @@ export default class LocationService {
                     'Content-Type': location.photo ? 'multipart/form-data' : 'application/json',
                 }
             });
-            return true;
-        } catch(e) {
-            return false;
-        }
+        return data 
+    } catch (e) {
+      console.error('Erro ao criar localização:', e)
+      return null
     }
+}
 }

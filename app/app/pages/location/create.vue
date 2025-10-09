@@ -102,9 +102,10 @@ const photoUrl = computed(() => {
 async function submit() {
   if (location.value.point.latitude && location.value.point.longitude) {
     try {
-      const res = await LocationService.create(location.value.point);
-      if (res) {
-        navigateTo("/");
+      const res = await LocationService.create(location.value.point)
+       console.log('Resposta da API:', res)
+      if (res?.id) {
+        navigateTo(`/location/${res.id}/description/create`);
       }
     } catch (e) {
       //
