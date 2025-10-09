@@ -13,8 +13,10 @@ class Address extends Model{
         'district',
         'cep',
         'reference',
+        'description_id'
     ];
-
+    public $incrementing = false;
+    
     public function description(): BelongsTo {
         return $this->belongsTo(Description::class,'description_id');
     }
