@@ -4,7 +4,7 @@
       <img src="~/assets/img/mapa.svg" alt="Icone de mapa" /><br />
       <span>Mapa</span>
     </button>
-    <button>
+    <button @click="navigateTo('campaigns')">
       <img src="~/assets/img/campanhas.svg" alt="Icone de campanhas" /><br />
       <span>Campanhas</span>
     </button>
