@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import CampaignForm from '~/components/campaign/CampaignForm.vue';
-import useUserStore from '~/stores/use-user-store';
+import CampaignForm from '~/components/Campaign/CampaignForm.vue';
+import useUserStore from '~/stores/useUserStore';
 
 definePageMeta({
   layout: 'default',
