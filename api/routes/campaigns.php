@@ -11,5 +11,3 @@ Route::prefix('campaigns')->group(function () {
     Route::put('/{campaign}', [App\Http\Controllers\CampaignController::class, 'update'])->middleware('auth:sanctum');
     Route::delete('/{campaign}', [App\Http\Controllers\CampaignController::class, 'destroy'])->middleware('auth:sanctum');
 });
-
-require __DIR__ . '/auth.php';

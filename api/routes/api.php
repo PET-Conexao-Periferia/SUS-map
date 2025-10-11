@@ -5,4 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/location.php';
-
+require __DIR__ . '/campaigns.php';
