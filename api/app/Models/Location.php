@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -26,8 +27,8 @@ class Location extends Model
     {
         return $this->belongsToMany(Campaign::class, 'locations_campaigns', 'location_id', 'campaigns_id');
     }
-    public function services(): HasMany
+    public function services(): BelongsToMany
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsToMany(Service::class, 'locations_services');
     }
 }

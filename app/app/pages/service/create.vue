@@ -1,8 +1,10 @@
 <template>
+<BackButton></BackButton>
 <Form @submit.prevent="submit">
   <Logo />
 
-  <h2 class="tw-text-xl tw-font-bold tw-text-center tw-mb-6">Serviços</h2>
+  <h2 class="tw-text-xl tw-font-bold tw-text-center tw-mb-6">Cadastrar Serviços</h2>
+  <p>Cadastre um novo serviço oferecido por uma das Unidades SUS Cdastradas!</p>
 
     <Input label="Nome" v-model="form.name" name="name" type="text" class="tw-mx-6 tw-mb-4" />
 
@@ -26,7 +28,7 @@ async function submit() {
   try {
     const res = await ServiceService.create(form.value)
     if (res) {
-      navigateTo("/")
+      navigateTo("/service/show")
     }
   } catch (e) {
     console.error("Erro ao cadastrar serviço:", e)

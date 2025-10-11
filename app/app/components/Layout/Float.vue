@@ -26,18 +26,20 @@
     >
       Adicionar local
     </button>
+    <Separator />
      <button
       v-if="$userStore.is_admin"
       @click="
         async () =>
           navigateTo({
-            name: 'service-create',
+            name: 'service-show',
           })
       "
       variant-select
     >
-      Adicionar Serviços
+      Serviços
     </button>
+
     <Separator v-if="$userStore.data == null && $userStore.is_admin" />
     <button
       @click="navigateTo('/account/login')"

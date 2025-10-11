@@ -14,5 +14,22 @@ export default class LocationService {
       console.error('Erro ao criar localização:', e)
       return null
     }
+
+    
 }
+
+    // services/LocationService.ts
+    static async attachServices(locationId: number, services: number[]) {
+    const { $axios } = useNuxtApp()
+    try {
+        const { data } = await $axios.post(`/api/locations/locations/${locationId}/services`, {
+        services
+        })
+        return data
+    } catch (e) {
+        console.error('Erro ao associar serviços ao local:', e)
+        return null
+    }
+    }
+
 }

@@ -18,14 +18,12 @@ class ServiceController extends Controller
     public function store(Request $request) //, $locationId
     {
         // $location = Location::findOrFail($locationId);
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
         // $service = $location->services()->create($validated);
         $service = Service::create($validated);
-
         return response()->json($service, 201);
     }
 

@@ -8,7 +8,6 @@ export default class AddressService {
       console.error('AddressService.create chamado com descriptionId inválido:', descriptionId)
       return null
     }
-
     try {
       const { data } = await $axios.post(`/api/addresses/description/${id}`, address)
       return data

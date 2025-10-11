@@ -50,11 +50,30 @@ class LocationController extends Controller
         }
 
         if(isset($validated['services'])) {
-                $location->services()->createMany($validated['services']);
+                $location->services()->sync($validated['services']);
         }
 
          return response()->json($location, 201);
     }
+
+    public function attachServices(Request $request, $locationId)
+    {
+        $validated = $request->validate([
+            'services' => 'required|array',
+            'services.*' => 'integer|exists:services,id',
+        ]);
+
+        $location = Location::findOrFail($locationId);
+
+        // Faz a associação (sem remover anteriores)
+        $location->services()->syncWithoutDetaching($validated['services']);
+
+        return response()->json([
+            'message' => 'Serviços vinculados com sucesso!',
+            'services' => $location->services
+        ]);
+    }
+
 
     /**
      * Display the specified resource.

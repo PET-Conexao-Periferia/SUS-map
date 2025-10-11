@@ -1,6 +1,30 @@
 <template>
   <Form @submit.prevent="submit">
     <Logo />
+     <ProgressBar :steps="steps" :currentStep="currentStep" />
+
+    <div class="tw-absolute tw-top-4 tw-right-4">
+          <button
+            @click="showPopup = true"
+            type="button"
+            class="tw-bg-blue-300 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-400 tw-transition"
+          >
+            ?
+      </button>
+    </div>
+
+    <!-- Popup de ajuda -->
+    <Popup :isVisible="showPopup" @close="showPopup = false">
+      <div>
+        <h2 class="tw-text-lg tw-font-bold tw-text-center tw-mb-2">Como preencher os campos?</h2>
+        <ol class="tw-list-decimal tw-list-inside tw-space-y-2">
+          <li><strong>Encontre o local:</strong> Selecione “CEP” ou “Rua”, ou marque o local manualmente no mapa.</li>
+          <li><strong>Foto:</strong> Adicione a imagem do local desejado.</li>
+          <li><strong>Próximo:</strong> Clique em “Próximo” para continuar o cadastro.</li>
+        </ol>
+      </div>
+    </Popup>
+
 
     <label class="tw-grid tw-mb-4 tw-mx-6">
       <span>Como deseja encontrar o local?</span>
@@ -45,7 +69,7 @@
       </client-only>
     </div>
     <Input
-      label="Foto"
+      label="Foto do local"
       name="location.point.photo"
       type="file"
       accept="image/*"
@@ -62,7 +86,7 @@
     </div>
 
     <Button class="tw-block tw-mx-auto tw-mt-12" type="submit">
-      Próximo: Descrição do Local
+      Próximo
     </Button>
   </Form>
 </template>
@@ -71,11 +95,17 @@
 import { type LocationCreateType, type LocationType } from "~/types/Location";
 import LocationService from "~/services/LocationService";
 import { ref, onUnmounted } from 'vue';
+import Popup from '~/components/Popup.vue';
+import ProgressBar from '~/components/ProgressBar.vue';
 
 definePageMeta({
   showHeader: true,
   name: "location-create",
 });
+
+const showPopup = ref(false);
+const steps = ['Local', 'Descrição', 'Endereço', 'Serviços'];
+const currentStep = 1;
 
 const selectViaCep = ref(true);
 
@@ -141,4 +171,5 @@ async function submit() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
