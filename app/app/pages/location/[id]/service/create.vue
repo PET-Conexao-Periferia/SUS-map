@@ -18,7 +18,8 @@
       <div>
         <h2 class="tw-text-lg tw-font-bold tw-text-center tw-mb-2">Como preencher os campos?</h2>
         <ol class="tw-list-decimal tw-list-inside tw-space-y-2">
-         <li><strong>Rua:</strong> Coloque o nome completo da rua do local.</li>
+        <li><strong>Serviço:</strong> Selecione 1 (um) ou mais Serviços que o Local oferece.</li>
+        <li><strong>Salvar:</strong> Clique em “Salvar Serviços” para concluir o cadastro.</li>
         </ol>
       </div>
     </Popup>
@@ -38,7 +39,7 @@
       type="submit"
       class="tw-bg-[#4F46E5] tw-text-white tw-px-4 tw-py-2 tw-rounded-md hover:tw-bg-[#4338CA]"
     >
-      Salvar Serviços
+      Salvar
     </Button>
  
   </Form>
@@ -76,7 +77,7 @@ onMounted(async () => {
 async function submit() {
   const response = await LocationService.attachServices(locationId, selectedServices.value)
   if (response) {
-    alert('Serviços vinculados com sucesso!')
+    alert('Cadastro Concluido!')
    navigateTo(`/`)
   }
 }
