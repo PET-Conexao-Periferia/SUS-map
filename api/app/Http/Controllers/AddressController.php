@@ -15,7 +15,7 @@ class AddressController extends Controller
         $validated = $request->validate([
             'cep' => 'required|string|max:20',
             'street' => 'required|string|max:255',
-            'number' => 'nullable|string|max:50',
+            'number' => 'nullable|integer|max:50',
             'district' => 'nullable|string|max:255',
             'reference' => 'nullable|string|max:255',
         ]);

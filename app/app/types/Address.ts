@@ -4,5 +4,5 @@ export type AddressType = {
     number: string,
     district: string,
     cep: string,
-    reference?: string,
+    reference?: string | null,
 }
