@@ -5,7 +5,7 @@ export default class CampaignService {
   static async getActiveCampaigns() {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.get("/api/campaigns");
+      const { data } = await $axios.get("/campaigns");
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -36,7 +36,7 @@ export default class CampaignService {
   static async getCampaignById(id: number) {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.get(`/api/campaigns/${id}`);
+      const { data } = await $axios.get(`/campaigns${id}`);
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -54,7 +54,7 @@ export default class CampaignService {
   static async createCampaign(campaign: Campaign) {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.post("/api/campaigns", campaign);
+      const { data } = await $axios.post("/campaigns", campaign);
       return data;
     } catch (error) {
       console.error("Erro ao criar campanha:", error);
@@ -65,7 +65,7 @@ export default class CampaignService {
   static async updateCampaign(id: number, campaign: Campaign) {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.put(`/api/campaigns/${id}`, campaign);
+      const { data } = await $axios.put(`/campaigns/${id}`, campaign);
       return data;
     } catch (error) {
       console.error(`Erro ao atualizar campanha ${id}:`, error);
@@ -76,7 +76,7 @@ export default class CampaignService {
   static async deleteCampaign(id: number) {
     const { $axios } = useNuxtApp();
     try {
-      await $axios.delete(`/api/campaigns/${id}`);
+      await $axios.delete(`/campaigns/${id}`);
       return true;
     } catch (error) {
       console.error(`Erro ao excluir campanha ${id}:`, error);
@@ -87,7 +87,7 @@ export default class CampaignService {
   static async getLocations() {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.get("/api/campaigns/locations");
+      const { data } = await $axios.get("/campaigns/locations");
       return data;
     } catch (error) {
       console.error("Erro ao buscar locais:", error);

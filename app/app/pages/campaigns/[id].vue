@@ -1,4 +1,5 @@
 <template>
+  <BackButton/>
   <div class="tw-container tw-mx-auto tw-py-8">
     <CampaignDetail :id="Number(id)" />
     

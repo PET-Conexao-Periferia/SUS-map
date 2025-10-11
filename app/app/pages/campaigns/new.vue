@@ -1,4 +1,5 @@
 <template>
+  <BackButton/>
   <div class="tw-container tw-mx-auto tw-py-8">
     <CampaignForm />
   </div>
@@ -19,7 +20,7 @@ const token = useCookie('token');
 
 onMounted(() => {
   if (!token.value || !userStore.is_admin) {
-    navigateTo('/auth/login');
+    navigateTo('/account/login');
   }
 });
 </script>
