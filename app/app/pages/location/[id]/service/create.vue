@@ -19,12 +19,13 @@
         <h2 class="tw-text-lg tw-font-bold tw-text-center tw-mb-2">Como preencher os campos?</h2>
         <ol class="tw-list-decimal tw-list-inside tw-space-y-2">
         <li><strong>Serviço:</strong> Selecione 1 (um) ou mais Serviços que o Local oferece.</li>
+        <li><strong>Adicionar novo:</strong> Clique em “Adicionar novo” para salvar os serviços e continuar adicionando mais serviços.</li>
         <li><strong>Salvar:</strong> Clique em “Salvar Serviços” para concluir o cadastro.</li>
         </ol>
       </div>
     </Popup>
 
-    <h2 class="tw-text-xl tw-font-semibold tw-mb-4">Selecionar serviços disponíveis</h2>
+    <h2 class="tw-text-xl tw-font-semibold tw-mb-4">Selecionar Serviços</h2>
 
     <div class="tw-mb-6">
       <label class="tw-block tw-mb-2">Serviços:</label>
@@ -35,10 +36,24 @@
       </select>
     </div>
 
-    <Button
-      type="submit"
-      class="tw-bg-[#4F46E5] tw-text-white tw-px-4 tw-py-2 tw-rounded-md hover:tw-bg-[#4338CA]"
-    >
+       <div v-if="selectedServiceObjects.length" class="tw-flex tw-flex-wrap tw-gap-2 tw-mb-6">
+      <div
+        v-for="service in selectedServiceObjects"
+        :key="service.id"
+        class="tw-bg-indigo-100 tw-text-indigo-700 tw-px-3 tw-py-1 tw-rounded-full tw-flex tw-items-center tw-gap-2 tw-text-sm tw-shadow-sm"
+      >
+        <span>{{ service.name }}</span>
+        <button
+          @click="removeService(service.id)"
+          type="button"
+          class="tw-text-indigo-500 hover:tw-text-red-500 tw-font-bold"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+    
+    <Button class="tw-block tw-mx-auto tw-mt-12" type="submit">
       Salvar
     </Button>
  
@@ -70,6 +85,16 @@ const locationId = Number(route.params.id)
 const services = ref<Service[]>([])
 const selectedServices = ref<number[]>([])
 
+const selectedServiceObjects = computed(() => {
+  return services.value.filter(service => selectedServices.value.includes(service.id))
+})
+
+// Remove serviço das tags
+function removeService(id: number) {
+  selectedServices.value = selectedServices.value.filter(s => s !== id)
+}
+
+
 onMounted(async () => {
   services.value = await ServiceService.getAll()
 })
@@ -77,6 +102,7 @@ onMounted(async () => {
 async function submit() {
   const response = await LocationService.attachServices(locationId, selectedServices.value)
   if (response) {
+    selectedServices.value = []
     alert('Cadastro Concluido!')
    navigateTo(`/`)
   }
