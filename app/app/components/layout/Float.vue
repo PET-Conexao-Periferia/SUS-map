@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import AuthService from "~/services/AuthService";
+import { AuthService } from "~/services/";
 
 const { $userStore } = useNuxtApp();
 const showMore = ref(false);

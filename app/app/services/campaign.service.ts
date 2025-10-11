@@ -1,11 +1,11 @@
-import type { Campaign } from "~/types/Campaign";
+import type { Campaign } from "~/types/campaign.type";
 import { AxiosError } from "axios";
 
-export default class CampaignService {
-  static async getActiveCampaigns() {
+export default new (class CampaignService {
+  async getActiveCampaigns() {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.get("/campaigns");
+      const { data } = await $axios.get("/api/campaigns");
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -33,10 +33,10 @@ export default class CampaignService {
     }
   }
 
-  static async getCampaignById(id: number) {
+  async getCampaignById(id: number) {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.get(`/campaigns${id}`);
+      const { data } = await $axios.get(`/api/campaigns/${id}`);
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -51,10 +51,10 @@ export default class CampaignService {
     }
   }
 
-  static async createCampaign(campaign: Campaign) {
+  async createCampaign(campaign: Campaign) {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.post("/campaigns", campaign);
+      const { data } = await $axios.post("/api/campaigns", campaign);
       return data;
     } catch (error) {
       console.error("Erro ao criar campanha:", error);
@@ -62,10 +62,10 @@ export default class CampaignService {
     }
   }
 
-  static async updateCampaign(id: number, campaign: Campaign) {
+  async updateCampaign(id: number, campaign: Campaign) {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.put(`/campaigns/${id}`, campaign);
+      const { data } = await $axios.put(`/api/campaigns/${id}`, campaign);
       return data;
     } catch (error) {
       console.error(`Erro ao atualizar campanha ${id}:`, error);
@@ -73,10 +73,10 @@ export default class CampaignService {
     }
   }
 
-  static async deleteCampaign(id: number) {
+  async deleteCampaign(id: number) {
     const { $axios } = useNuxtApp();
     try {
-      await $axios.delete(`/campaigns/${id}`);
+      await $axios.delete(`/api/campaigns/${id}`);
       return true;
     } catch (error) {
       console.error(`Erro ao excluir campanha ${id}:`, error);
@@ -84,14 +84,14 @@ export default class CampaignService {
     }
   }
 
-  static async getLocations() {
+  async getLocations() {
     const { $axios } = useNuxtApp();
     try {
-      const { data } = await $axios.get("/campaigns/locations");
+      const { data } = await $axios.get("/api/campaigns/locations");
       return data;
     } catch (error) {
       console.error("Erro ao buscar locais:", error);
       return [];
     }
   }
-}
+})();

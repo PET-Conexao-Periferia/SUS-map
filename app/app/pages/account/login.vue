@@ -1,9 +1,8 @@
 <template>
-<Form @submit.prevent="submit">
+  <Form @submit.prevent="submit">
+    <Logo />
 
-  <Logo />
-
-  <Input
+    <Input
       label="E-mail"
       type="email"
       v-model="user.email"
@@ -11,11 +10,11 @@
       placeholder="Digite seu e-mail..."
       class="tw-mb-5 tw-mx-6"
       :error="logErrors.email"
-  >
-    <ErrorMessage message-error="E-mail inválido" />
-  </Input>
+    >
+      <ErrorMessage message-error="E-mail inválido" />
+    </Input>
 
-  <Input
+    <Input
       label="Senha"
       type="password"
       v-model="user.password"
@@ -23,39 +22,30 @@
       placeholder="Digite sua senha..."
       class="tw-mb-14 tw-mx-6"
       :error="logErrors.password"
-  >
-    <ErrorMessage message-error="Senha inválida" />
-  </Input>
+    >
+      <ErrorMessage message-error="Senha inválida" />
+    </Input>
 
-  <Button
-      type="submit"
-      class="tw-block tw-mx-auto tw-mt-5"
-  >
-    Login
-  </Button>
+    <Button type="submit" class="tw-block tw-mx-auto tw-mt-5"> Login </Button>
 
-  <NuxtLink
-      to="/account/register"
-      class="tw-block tw-mx-auto tw-mt-5"
-  >
-    Cadastre-se
-  </NuxtLink>
-
-</Form>
+    <NuxtLink to="/account/register" class="tw-block tw-mx-auto tw-mt-5">
+      Cadastre-se
+    </NuxtLink>
+  </Form>
 </template>
 
 <script setup lang="ts">
-import AuthService from "~/services/AuthService";
-import { loginSchema } from "~/validations/userSchemaValidation";
+import { AuthService } from "~/services/";
+import { loginSchema } from "~/validations/";
 
 definePageMeta({
   showHeader: true,
-  name: 'login'
+  name: "login",
 });
 
 const user = ref({
-  email: '',
-  password: ''
+  email: "",
+  password: "",
 });
 const logErrors = ref({
   email: false,
@@ -63,23 +53,23 @@ const logErrors = ref({
 });
 const { $userStore } = useNuxtApp();
 
-watch(user, () => {
-  validated();
-}, {
-  deep: true,
-})
+watch(
+  user,
+  () => {
+    validated();
+  },
+  {
+    deep: true,
+  }
+);
 
 async function submit() {
-  if(
-      user.value.email &&
-      user.value.password &&
-      validated()
-  ) {
+  if (user.value.email && user.value.password && validated()) {
     const res = await AuthService.login(user.value);
 
-    if(res) {
+    if (res) {
       await $userStore.fetch();
-      navigateTo('/');
+      navigateTo("/");
     }
   }
 }
@@ -89,11 +79,11 @@ function validated() {
   logErrors.value.email = false;
   logErrors.value.password = false;
 
-  if(!result.success) {
+  if (!result.success) {
     const errors = result.error.issues;
-    for(const error of errors) {
+    for (const error of errors) {
       //@ts-ignore
-      if(typeof logErrors.value[String(error.path[0])] === 'boolean') {
+      if (typeof logErrors.value[String(error.path[0])] === "boolean") {
         //@ts-ignore
         logErrors.value[String(error.path[0])] = true;
       }
@@ -103,6 +93,4 @@ function validated() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
