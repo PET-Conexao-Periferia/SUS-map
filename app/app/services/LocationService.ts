@@ -32,4 +32,12 @@ export default class LocationService {
     }
     }
 
+
+    // export const getLocationDetails = async (id: number) => {
+    static async getLocationDetails(locationId: number) {
+        const { $axios } = useNuxtApp();
+        const { data } = await $axios.get(`/api/locations/${locationId}`);
+        return data;
+        };
+
 }
