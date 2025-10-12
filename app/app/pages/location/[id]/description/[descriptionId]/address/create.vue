@@ -56,7 +56,7 @@ const descriptionId = Number(route.params.descriptionId)
 
 const form = ref({
   street: '',
-  number: '',
+  number: 0,
   district: '',
   cep: '',
   reference: '',
