@@ -29,7 +29,7 @@
         <h3 class="tw-font-semibold tw-mt-4">Endereço</h3>
         <p>
           {{ location.description.address.street }}, nº {{ location.description.address.number }},
-          {{ location.description.address.distric }} - CEP: {{ location.description.address.cep }}
+          {{ location.description.address.district }} - CEP: {{ location.description.address.cep }}
         </p>
         <p>Referência: {{ location.description.address.reference }}</p>
       </div>
