@@ -14,10 +14,10 @@ class Service extends Model
 
     public function location(): BelongsToMany
     {
-        return $this->belongsToMany(Location::class, 'locations_services', 'location_id', 'service_id');
+        return $this->belongsToMany(Location::class, 'locations_services'); //'location_id', 'service_id'
     }
-    public function openingTimes(): HasOne
-    {
-        return $this->hasOne(OpeningTimes::class, 'openingTimes_id');
-    }
+    // public function openingTimes(): HasOne
+    // {
+    //     return $this->hasOne(OpeningTimes::class, 'openingTimes_id');
+    // }
 }

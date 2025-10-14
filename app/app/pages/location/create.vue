@@ -4,6 +4,30 @@
     <div class="tw-mx-auto">
       <h2>Adicionar local</h2>
     </div>
+     <ProgressBar :steps="steps" :currentStep="currentStep" />
+
+    <div class="tw-absolute tw-top-4 tw-right-4">
+          <button
+            @click="showPopup = true"
+            type="button"
+            class="tw-bg-blue-300 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-400 tw-transition"
+          >
+            ?
+      </button>
+    </div>
+
+    <!-- Popup de ajuda -->
+    <Popup :isVisible="showPopup" @close="showPopup = false">
+      <div>
+        <h2 class="tw-text-lg tw-font-bold tw-text-center tw-mb-2">Como preencher os campos?</h2>
+        <ol class="tw-list-decimal tw-list-inside tw-space-y-2">
+          <li><strong>Encontre o local:</strong> Selecione “CEP” ou “Rua”, ou marque o local manualmente no mapa.</li>
+          <li><strong>Foto:</strong> Adicione a imagem do local desejado.</li>
+          <li><strong>Próximo:</strong> Clique em “Próximo” para continuar o cadastro.</li>
+        </ol>
+      </div>
+    </Popup>
+    
     <label class="tw-grid tw-mb-4 tw-mx-6">
       <span>Como deseja encontrar o local?</span>
       <select v-model="selectViaCep" class="tw-mx-auto" name="selectViaCep">
@@ -47,7 +71,6 @@
         />
       </client-only>
     </div>
-
     <div>
       <Input
       label="Adicione uma foto do local:"
@@ -69,19 +92,26 @@
     </div>
 
     <Button class="tw-block tw-mx-auto tw-mt-12" type="submit">
-      Cadastrar local
+      Próximo
     </Button>
   </Form>
 </template>
 
 <script setup lang="ts">
-import type { LocationCreateType, LocationType } from "~/types/";
-import { LocationService } from "~/services/";
+import { type LocationCreateType, type LocationType } from "~/types/location.type";
+import LocationService from "~/services/LocationService";
+import { ref, onUnmounted } from 'vue';
+import Popup from '~/components/Popup.vue';
+import ProgressBar from '~/components/ProgressBar.vue';
 
 definePageMeta({
   showHeader: true,
   name: "location-create",
 });
+
+const showPopup = ref(false);
+const steps = ['Local', 'Descrição', 'Endereço', 'Serviços'];
+const currentStep = 1;
 
 const selectViaCep = ref(true);
 
@@ -143,9 +173,10 @@ onUnmounted(() => {
 async function submit() {
   if (location.value.point.latitude && location.value.point.longitude) {
     try {
-      const res = await LocationService.create(location.value.point);
-      if (res) {
-        navigateTo("/");
+      const res = await LocationService.create(location.value.point)
+       console.log('Resposta da API:', res)
+      if (res?.id) {
+        navigateTo(`/location/${res.id}/description/create`);
       }
     } catch (e) {
       console.error(e);

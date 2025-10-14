@@ -16,6 +16,7 @@ Route::prefix('locations')
                 Route::post('', 'store');
                 Route::put('{location}', 'update');
                 Route::delete('{location}', 'destroy');
+                Route::post('/locations/{location}/services', 'attachServices');
 
             });
 

@@ -34,6 +34,7 @@ class StoreLocationRequest extends FormRequest
             //services validation:
             'services' => ['nullable', 'array'],
             'services.*.name' => ['required.services', 'string'],
+            // 'services.*' => '[required.services,id', 'integer]'
         ];
     }
 }

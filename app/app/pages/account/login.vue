@@ -1,4 +1,5 @@
 <template>
+  <BackButton class="tw-m-8" cor="aliceblue"/>
   <Form @submit.prevent="submit">
     <Logo />
 

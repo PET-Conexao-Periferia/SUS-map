@@ -36,12 +36,25 @@
            navigateTo({
             name: 'location-create',
           })
-          selectOption()
         }
       "
       variant-select
     >
       Adicionar local
+    
+    </button>
+    
+    <Separator v-if="$userStore.data !== null && $userStore.is_admin" />
+    <button
+      v-if="$userStore.is_admin"
+      @click="
+        async () =>{
+           navigateTo('/service/show')
+        }
+      "
+      variant-select
+    >
+      Adicionar Serviços
     
     </button>
     
@@ -52,7 +65,6 @@
       @click="
         async () =>{
            navigateTo('/campaigns/new')
-          selectOption()
         }
       "
       variant-select
@@ -62,7 +74,7 @@
     </button>
     
     <button
-      @click="navigateTo('/account/login'); selectOption()"
+      @click="navigateTo('/account/login')"
       v-if="$userStore.data == null"
     >
       Fazer login
@@ -70,7 +82,7 @@
     
     <Separator v-if="$userStore.data !== null" />
     
-    <button v-if="$userStore.data !== null" @click="AuthService.logout; selectOption()">
+    <button v-if="$userStore.data !== null" @click="AuthService.logout">
       Sair
     
     </button>
@@ -143,8 +155,8 @@ onBeforeUnmount(() => {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   bottom: 16vh;
   background-color: #ffffff;
-  min-width: 25vw;
-  max-width: 25vw;
+  min-width: 28vw;
+  max-width: 28vw;
   padding: 1em;
   z-index: 2147483647;  /*isso seria o número maximo que um navegador permite*/
   flex-flow: column;
