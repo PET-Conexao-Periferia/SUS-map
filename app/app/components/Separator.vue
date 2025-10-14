@@ -9,6 +9,6 @@
 div {
   border-top: 1px solid #6b7280;
   width: 100%;
-  margin: 15px 0;
+  margin: 0;
 }
 </style>

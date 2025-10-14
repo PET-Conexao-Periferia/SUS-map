@@ -1,7 +1,9 @@
 <template>
+    <BackButton/>
   <Form @submit.prevent="submit">
-    <Logo />
-
+    <div class="tw-mx-auto">
+      <h2>Adicionar local</h2>
+    </div>
     <label class="tw-grid tw-mb-4 tw-mx-6">
       <span>Como deseja encontrar o local?</span>
       <select v-model="selectViaCep" class="tw-mx-auto" name="selectViaCep">
@@ -32,7 +34,8 @@
       />
     </keep-alive>
 
-    <div class="tw-h-96 tw-my-4">
+    <div class="tw-h-80 tw-mb-14 tw-mt-4 tw-mx-0">
+      <p>Selecione o local no mapa:</p>
       <client-only>
         <LazyMap
           :fullscreen="false"
@@ -44,14 +47,18 @@
         />
       </client-only>
     </div>
-    <Input
-      label="Foto"
+
+    <div>
+      <Input
+      label="Adicione uma foto do local:"
       name="location.point.photo"
       type="file"
       accept="image/*"
       class="tw-mx-6 tw-mb-4 tw-text-wrap tw-w-[90%]"
       @change="handlePhotoChange"
     />
+    </div>
+
     <div v-if="photoUrl">
       <h3 class="tw-text-center">Imagem selecionada:</h3>
       <img
@@ -147,4 +154,5 @@ async function submit() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

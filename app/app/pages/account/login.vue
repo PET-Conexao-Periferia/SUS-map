@@ -29,7 +29,7 @@
     <Button type="submit" class="tw-block tw-mx-auto tw-mt-5"> Login </Button>
 
     <NuxtLink to="/account/register" class="tw-block tw-mx-auto tw-mt-5">
-      Cadastre-se
+      Ainda não tem uma conta? Cadastre-se
     </NuxtLink>
   </Form>
 </template>
@@ -39,7 +39,7 @@ import { AuthService } from "~/services/";
 import { loginSchema } from "~/validations/";
 
 definePageMeta({
-  showHeader: true,
+  layout: 'empty',
   name: "login",
 });
 

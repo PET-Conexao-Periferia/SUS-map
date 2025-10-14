@@ -58,7 +58,7 @@
     </Button>
 
     <NuxtLink to="/account/login" class="tw-block tw-mx-auto tw-mt-5">
-      Fazer login
+      Já tem uma conta? Fazer login
     </NuxtLink>
   </Form>
 </template>
@@ -69,7 +69,7 @@ import { AuthService } from "~/services/";
 import { registerSchema } from "~/validations/";
 
 definePageMeta({
-  showHeader: true,
+  layout: 'empty',
   name: "register",
 });
 

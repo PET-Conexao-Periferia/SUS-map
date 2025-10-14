@@ -1,13 +1,15 @@
 <template>
-  <div class="campaign-list">
-    <h2 class="tw-text-xl tw-font-bold tw-mb-4">Campanhas Ativas</h2>
-
+  <div class="tw-mx-auto">
+    <div class="tw-text-center">
+      <h2>Campanhas ativas</h2>
+    </div>
+    <div class="campaign-list">
     <div v-if="loading" class="tw-text-center tw-py-4">
       Carregando campanhas...
     </div>
 
     <div v-else-if="campaigns.length === 0" class="tw-text-center tw-py-4">
-      Nenhuma campanha ativa no momento.
+      Não há nenhuma campanha ativa no momento.
     </div>
 
     <div v-else class="tw-grid tw-gap-4">
@@ -38,14 +40,8 @@
     </div>
 
     <div v-if="$userStore.is_admin" class="tw-mt-6 tw-text-center">
-      <Button
-        type="button"
-        @click="navigateTo('/campaigns/new')"
-        class="tw-bg-blue-500 tw-text-white"
-      >
-        Nova Campanha
-      </Button>
     </div>
+  </div>
   </div>
 </template>
 
@@ -58,17 +54,13 @@ const { $userStore } = useNuxtApp();
 const loading = ref(true);
 const campaigns = ref<Campaign[]>([]);
 
-console.log("Componente montado, iniciando busca de campanhas...");
 
 try {
   console.log("Antes da chamada à API");
   const result = await CampaignService.getActiveCampaigns();
-  console.log("Resposta da API:", result);
-  console.log("Tipo da resposta:", typeof result);
-  console.log("É array?", Array.isArray(result));
 
   campaigns.value = result;
-  console.log("Campanhas após atribuição:", campaigns.value);
+
 
   if (campaigns.value.length === 0) {
     console.log("Nenhuma campanha retornada da API");
@@ -98,11 +90,5 @@ try {
   }
 } finally {
   loading.value = false;
-  console.log(
-    "Estado final - loading:",
-    loading.value,
-    "campanhas:",
-    campaigns.value.length
-  );
 }
 </script>

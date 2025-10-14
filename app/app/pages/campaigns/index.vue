@@ -1,13 +1,6 @@
 <template>
   <BackButton />
-  <Form>
-    <div class="tw-container tw-mx-auto tw-py-8">
-      <h1 class="tw-text-2xl tw-font-bold tw-mb-6 tw-text-center">
-        Campanhas de Saúde
-      </h1>
       <CampaignList />
-    </div>
-  </Form>
 </template>
 
 <script setup lang="ts"></script>

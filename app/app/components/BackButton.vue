@@ -20,15 +20,14 @@ function back() {
 <style scoped lang="scss">
 button {
   display: flex;
-  margin: 1em;
   flex-direction: row;
   align-items: center;
   gap: 0.3em;
   border: none;
   font-size: 1.2em;
-  background-color: #ccd2ff;
+  background-color: transparent;
   border-radius: 24px;
   color: #003087;
-  padding: 0.5em;
+  padding: 1em;
 }
 </style>

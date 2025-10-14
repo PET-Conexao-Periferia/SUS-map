@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     enabled: String(process.env?.NUXT_DEVELOPER) === "true" ? true : false,
   },
   debug: String(process.env?.NUXT_DEVELOPER) === "true" ? true : false,
-  ssr: true,
+  ssr: false,
   css: ["~/assets/css/main.scss", "~/assets/css/tailwind.scss"],
   vite: {
     css: {
