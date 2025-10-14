@@ -1,7 +1,7 @@
-import type { UserType } from "~/types/User";
+import type { UserType } from "~/types/user.type";
 
-export default class AuthService {
-  static async login(user: UserType): Promise<boolean> {
+export default new (class AuthService {
+  async login(user: UserType): Promise<boolean> {
     const { $axios } = useNuxtApp();
     const { data } = await $axios.post("api/users/login", {
       email: user.email,
@@ -13,7 +13,7 @@ export default class AuthService {
     return true;
   }
 
-  static async logout() {
+  async logout() {
     const { $axios, $userStore } = useNuxtApp();
     await $axios.post("api/users/logout");
     delete $axios.defaults.headers.common["Authorization"];
@@ -24,7 +24,7 @@ export default class AuthService {
     $userStore.resetData();
   }
 
-  static async register(user: UserType) {
+  async register(user: UserType) {
     const { $axios } = useNuxtApp();
     try {
       const { data } = await $axios.post("api/users/register", user);
@@ -37,7 +37,7 @@ export default class AuthService {
     }
   }
 
-  static async checkEmailCode(code: string) {
+  async checkEmailCode(code: string) {
     if (code.length !== 8) {
       return;
     }
@@ -46,4 +46,4 @@ export default class AuthService {
       code,
     });
   }
-}
+})();

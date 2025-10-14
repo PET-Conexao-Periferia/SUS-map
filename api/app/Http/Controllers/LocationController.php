@@ -21,13 +21,13 @@ class LocationController extends Controller
         //formula utilizada: Distância = raiz quadrada de (x2 - x1)² + (y2 - y1)²
         $locations = Location::select('id', 'photo', 'latitude', 'longitude')
             ->selectRaw(
-            'SQRT(POW(latitude - ?, 2) + POW(longitude - ?, 2)) as distance',
-            [$validated['latitude'], $validated['longitude']]
-        )
+                'SQRT(POW(latitude - ?, 2) + POW(longitude - ?, 2)) as distance',
+                [$validated['latitude'], $validated['longitude']]
+            )
             ->orderBy('distance')
             ->take(45)
             ->get();
-
+        // $locations = Location::all();
         return response($locations, 200);
     }
 
@@ -38,32 +38,64 @@ class LocationController extends Controller
     {
         $validated = $request->validated();
 
-        if(isset($validated['photo'])) {
+        if (isset($validated['photo'])) {
             $photoPath = $validated['photo']->store('photos', 'public');
             $validated['photo'] = $photoPath;
         }
 
         $location = Location::create($validated);
 
-        if(isset($validated['description'])) {
+        if (isset($validated['description'])) {
             $location->description()->create($validated['description']);
         }
 
-        if(isset($validated['services'])) {
-                $location->services()->createMany($validated['services']);
+        if (isset($validated['services'])) {
+            $location->services()->sync($validated['services']);
         }
 
-        response($location, 201);
+        return response()->json($location, 201);
+    }
+
+    public function attachServices(Request $request, $locationId)
+    {
+        $validated = $request->validate([
+            'services' => 'required|array',
+            'services.*' => 'integer|exists:services,id',
+        ]);
+
+        $location = Location::findOrFail($locationId);
+
+        // Faz a associação (sem remover anteriores)
+        $location->services()->syncWithoutDetaching($validated['services']);
+
+        return response()->json([
+            'message' => 'Serviços vinculados com sucesso!',
+            'services' => $location->services
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Location $location)
-    {
-        $location->load('campaigns', 'description', 'services');
-        response($location, 200);
+
+    public function show($id){
+
+        //$location->load('campaigns', 'description', 'services');
+        //return response()->json($location, 200);
+
+        $location = Location::with([
+            // 'description',
+            'description.address',
+            'services'
+        ])->find($id);
+
+        if (!$location) {
+            return response()->json(['message' => 'Local não encontrado'], 404);
+        }
+
+        return response()->json($location);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -71,7 +103,7 @@ class LocationController extends Controller
     public function update(UpdateLocationRequest $request, Location $location)
     {
         $validated = $request->validated();
-        if(isset($validated['photo'])) {
+        if (isset($validated['photo'])) {
             $photoPath = $validated['photo']->store('photos', 'public');
             $validated['photo'] = $photoPath;
             Storage::delete('public/' . $location->photo);

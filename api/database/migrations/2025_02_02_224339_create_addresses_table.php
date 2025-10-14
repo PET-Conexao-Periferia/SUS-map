@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('number');
             $table->string('district');
             $table->string('cep', 9);
-            $table->string('reference', 400);
+            $table->string('reference', 400)->nullable();
             $table->timestamps();
         });
     }

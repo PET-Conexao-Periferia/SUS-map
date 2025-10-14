@@ -2,10 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: {
-    enabled: String(process.env?.NUXT_DEVELOPER) === "true" ? true : undefined,
+    enabled: String(process.env?.NUXT_DEVELOPER) === "true" ? true : false,
   },
-  debug: String(process.env?.NUXT_DEVELOPER) === "true" ? true : undefined,
-  ssr: true,
+  debug: String(process.env?.NUXT_DEVELOPER) === "true" ? true : false,
+  ssr: false,
   css: ["~/assets/css/main.scss", "~/assets/css/tailwind.scss"],
   vite: {
     css: {
@@ -19,17 +19,16 @@ export default defineNuxtConfig({
       allowedHosts: true,
     },
     optimizeDeps: {
-      include: ["leaflet", "@vue-leaflet/vue-leaflet"],
+      include: ["leaflet", "axios", "vue-the-mask"],
     },
   },
   modules: ["@pinia/nuxt", "@nuxtjs/leaflet", "@vite-pwa/nuxt", "@nuxt/image"],
   pinia: {
-    storesDirs: ["~/stores/**/*.ts"],
+    storesDirs: ["~/stores/**"],
   },
   pwa: {
     devOptions: {
-      enabled:
-        String(process.env?.NUXT_DEVELOPER) === "true" ? true : undefined,
+      enabled: String(process.env?.NUXT_DEVELOPER) === "true" ? true : false,
     },
     manifest: {
       lang: "pt-BR",
@@ -67,7 +66,6 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
-      
     },
   },
 });
