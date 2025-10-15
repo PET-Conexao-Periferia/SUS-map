@@ -12,8 +12,6 @@
 definePageMeta({
   showHeader: false,
   name: "home",
-  keepalive: true,
-  key: "home",
 });
 </script>
 

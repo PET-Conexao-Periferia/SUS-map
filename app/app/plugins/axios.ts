@@ -1,12 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 
-declare module "@vue/runtime-core" {
-  interface ComponentCustomProperties {
-    $axios: AxiosInstance;
-  }
-}
-
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   const api: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL ?? "http://localhost",
     withCredentials: false,
@@ -23,8 +17,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     return config;
   });
-
-  nuxtApp.vueApp.config.globalProperties.$axios = api;
 
   return {
     provide: {

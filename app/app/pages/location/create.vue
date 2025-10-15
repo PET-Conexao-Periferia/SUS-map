@@ -1,7 +1,33 @@
 <template>
+    <BackButton/>
   <Form @submit.prevent="submit">
-    <Logo />
+    <div class="tw-mx-auto">
+      <h2>Adicionar local</h2>
+    </div>
+     <ProgressBar :steps="steps" :currentStep="currentStep" />
 
+    <div class="tw-absolute tw-top-4 tw-right-4">
+          <button
+            @click="showPopup = true"
+            type="button"
+            class="tw-bg-blue-300 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-400 tw-transition"
+          >
+            ?
+      </button>
+    </div>
+
+    <!-- Popup de ajuda -->
+    <Popup :isVisible="showPopup" @close="showPopup = false">
+      <div>
+        <h2 class="tw-text-lg tw-font-bold tw-text-center tw-mb-2">Como preencher os campos?</h2>
+        <ol class="tw-list-decimal tw-list-inside tw-space-y-2">
+          <li><strong>Encontre o local:</strong> Selecione “CEP” ou “Rua”, ou marque o local manualmente no mapa.</li>
+          <li><strong>Foto:</strong> Adicione a imagem do local desejado.</li>
+          <li><strong>Próximo:</strong> Clique em “Próximo” para continuar o cadastro.</li>
+        </ol>
+      </div>
+    </Popup>
+    
     <label class="tw-grid tw-mb-4 tw-mx-6">
       <span>Como deseja encontrar o local?</span>
       <select v-model="selectViaCep" class="tw-mx-auto" name="selectViaCep">
@@ -32,7 +58,8 @@
       />
     </keep-alive>
 
-    <div class="tw-h-96 tw-my-4">
+    <div class="tw-h-80 tw-mb-14 tw-mt-4 tw-mx-0">
+      <p>Selecione o local no mapa:</p>
       <client-only>
         <LazyMap
           :fullscreen="false"
@@ -44,14 +71,17 @@
         />
       </client-only>
     </div>
-    <Input
-      label="Foto"
+    <div>
+      <Input
+      label="Adicione uma foto do local:"
       name="location.point.photo"
       type="file"
       accept="image/*"
       class="tw-mx-6 tw-mb-4 tw-text-wrap tw-w-[90%]"
-      @input="location.point.photo = $event.target.files[0]"
+      @change="handlePhotoChange"
     />
+    </div>
+
     <div v-if="photoUrl">
       <h3 class="tw-text-center">Imagem selecionada:</h3>
       <img
@@ -62,19 +92,26 @@
     </div>
 
     <Button class="tw-block tw-mx-auto tw-mt-12" type="submit">
-      Cadastrar local
+      Próximo
     </Button>
   </Form>
 </template>
 
 <script setup lang="ts">
-import { type LocationCreateType, type LocationType } from "~/types/Location";
+import { type LocationCreateType, type LocationType } from "~/types/location.type";
 import LocationService from "~/services/LocationService";
+import { ref, onUnmounted } from 'vue';
+import Popup from '~/components/Popup.vue';
+import ProgressBar from '~/components/ProgressBar.vue';
 
 definePageMeta({
   showHeader: true,
   name: "location-create",
 });
+
+const showPopup = ref(false);
+const steps = ['Local', 'Descrição', 'Endereço', 'Serviços'];
+const currentStep = 1;
 
 const selectViaCep = ref(true);
 
@@ -87,29 +124,66 @@ const location = ref<LocationCreateType>({
   },
 });
 
-const photoUrl = computed(() => {
-  if (location.value.point.photo) {
+let currentObjectUrl: string | null = null;
+const photoUrl = ref<string | null>(null);
+
+function handlePhotoChange(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+
+  if (!file) return;
+
+  location.value = {
+    ...location.value,
+    point: {
+      ...location.value.point,
+      photo: file,
+    },
+  };
+
+  if (currentObjectUrl) {
     try {
-      return URL.createObjectURL(location.value.point.photo);
+      URL.revokeObjectURL(currentObjectUrl);
     } catch (e) {
-      return "";
+      /* ignore */
     }
+    currentObjectUrl = null;
   }
-  return "";
+
+  try {
+    const url = URL.createObjectURL(file);
+    currentObjectUrl = url;
+    photoUrl.value = url;
+  } catch (e) {
+    photoUrl.value = null;
+  }
+}
+
+onUnmounted(() => {
+  if (currentObjectUrl) {
+    try {
+      URL.revokeObjectURL(currentObjectUrl);
+    } catch (e) {
+      /* ignore */
+    }
+    currentObjectUrl = null;
+  }
 });
 
 async function submit() {
   if (location.value.point.latitude && location.value.point.longitude) {
     try {
-      const res = await LocationService.create(location.value.point);
-      if (res) {
-        navigateTo("/");
+      const res = await LocationService.create(location.value.point)
+       console.log('Resposta da API:', res)
+      if (res?.id) {
+        navigateTo(`/location/${res.id}/description/create`);
       }
     } catch (e) {
-      //
+      console.error(e);
     }
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

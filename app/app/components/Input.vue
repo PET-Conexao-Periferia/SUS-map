@@ -4,15 +4,25 @@
       :for="$attrs.id ? String($attrs.id) : undefined"
   >
     <span class="tw-pl-2">{{ label }}</span>
-    <input
-        v-bind="$attrs"
-        @input="validate = true"
-        v-model="inputValue"
-        :class="[
-            {'variant-select': props.variant},
-            $attrs?.['input.class'] ?? '',
-        ]"
-    />
+  <input
+    v-if="isFile"
+    v-bind="$attrs"
+    @change="onFileChange"
+    :class="[
+      {'variant-select': props.variant},
+      $attrs?.['input.class'] ?? '',
+    ]"
+  />
+  <input
+    v-else
+    v-bind="$attrs"
+    @input="validate = true"
+    v-model="inputValue"
+    :class="[
+      {'variant-select': props.variant},
+      $attrs?.['input.class'] ?? '',
+    ]"
+  />
     <slot v-if="validate && props.error" />
   </label>
 </template>
@@ -42,6 +52,19 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(['update:modelValue']);
+
+const attrs = useAttrs()
+const isFile = computed(() => (attrs as any).type === 'file')
+
+function onFileChange(event: Event) {
+  validate.value = true
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0] ?? null
+  // Emit the file as the new model value
+  emit('update:modelValue', file)
+  // Re-emit the native change event so parent listeners (like @change) run
+  ;(emit as any)('change', event)
+}
 
 const validate = ref(false);
 

@@ -1,11 +1,10 @@
-import useUserStore from "~/stores/useUserStore";
-import useLocationStore from "~/stores/useLocationStore";
+import { useUserStore, useLocationStore } from "~/stores";
 
 export default defineNuxtPlugin(() => {
-    return {
-        provide: {
-            userStore: useUserStore(),
-            locationStore: useLocationStore(),
-        }
-    }
+  return {
+    provide: {
+      userStore: useUserStore(),
+      locationStore: useLocationStore(),
+    },
+  };
 });

@@ -1,5 +1,6 @@
 <template>
   <button
+    type="button"
     v-bind="$attrs"
     :class="[`button-${props.variants}`]"
   >

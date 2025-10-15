@@ -6,7 +6,7 @@ html, body{
 }
 
 body {
-  background-color: #003087;
+  background-color: var(--bg-color) !important;
   min-height: 100vh;
   font-size: 1rem;
   font-family: 'Avenir LT Pro', sans-serif;
@@ -20,4 +20,14 @@ body {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
+}
+.page-header{
+  display: grid;
+  justify-items: baseline;
+  background-color: aliceblue;
+  margin-bottom: 4vh;
+  padding: 0em 1em;
+  gap: 0;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr auto);
 }
