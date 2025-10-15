@@ -4,6 +4,7 @@ import type { DescriptionType } from "./description.type";
 import type { UserType } from "./user.type";
 import type { ServiceType } from "./service.type";
 import type { LocationCreateType } from "./location.type";
+import type { AddressType } from "./Address.type";
 
 export type {
   Campaign,
@@ -12,4 +13,5 @@ export type {
   UserType,
   ServiceType,
   LocationCreateType,
+  AddressType
 };

@@ -9,7 +9,7 @@
 <script setup>
 useHead({
   bodyAttrs: {
-    style: '--bg-color: #f0f8ff;'
+    style: '--bg-color: #f9f9fb;'
   }
 })
 </script>

@@ -1,30 +1,16 @@
 <template>
-  <BackButton class="tw-m-8" cor="aliceblue"/>
+  <BackButton class="tw-m-8" cor="aliceblue" />
   <Form @submit.prevent="submit">
     <Logo />
 
-    <Input
-      label="E-mail"
-      type="email"
-      v-model="user.email"
-      name="user.email"
-      placeholder="Digite seu e-mail..."
-      class="tw-mb-5 tw-mx-6"
-      :error="logErrors.email"
-    >
-      <ErrorMessage message-error="E-mail inválido" />
+    <Input label="E-mail" type="email" v-model="user.email" name="user.email" placeholder="Digite seu e-mail..."
+      class="tw-mb-5 tw-mx-6" :error="logErrors.email">
+    <ErrorMessage message-error="E-mail inválido" />
     </Input>
 
-    <Input
-      label="Senha"
-      type="password"
-      v-model="user.password"
-      name="user.password"
-      placeholder="Digite sua senha..."
-      class="tw-mb-14 tw-mx-6"
-      :error="logErrors.password"
-    >
-      <ErrorMessage message-error="Senha inválida" />
+    <Input label="Senha" type="password" v-model="user.password" name="user.password" placeholder="Digite sua senha..."
+      class="tw-mb-14 tw-mx-6" :error="logErrors.password">
+    <ErrorMessage message-error="Senha inválida" />
     </Input>
 
     <Button type="submit" class="tw-block tw-mx-auto tw-mt-5"> Login </Button>

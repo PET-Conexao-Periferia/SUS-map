@@ -1,6 +1,6 @@
 <template>
   <BackButton />
-      <CampaignList />
+  <CampaignList />
 </template>
 
 <script setup lang="ts"></script>

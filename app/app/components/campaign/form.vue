@@ -4,50 +4,24 @@
       {{ isEditing ? "Editar Campanha" : "Nova Campanha" }}
     </h2>
 
-    <Input
-      label="Nome da Campanha"
-      v-model="form.name"
-      type="text"
-      placeholder="Digite o nome da campanha..."
-      class="tw-mx-6 tw-mb-4"
-      :validation="validateRequired"
-      message-error="Nome é obrigatório"
-    />
+    <Input label="Nome da Campanha" v-model="form.name" type="text" placeholder="Digite o nome da campanha..."
+      class="tw-mx-6 tw-mb-4" :validation="validateRequired" message-error="Nome é obrigatório" />
 
     <div class="tw-mx-6 tw-mb-4">
       <label class="tw-pl-1">Descrição</label>
-      <textarea
-        v-model="form.description"
-        placeholder="Digite a descrição da campanha..."
-        rows="4"
-        class="tw-w-full tw-p-2 tw-border tw-border-gray-300 tw-rounded"
-      ></textarea>
-      <small
-        v-if="!form.description && submitted"
-        class="tw-text-red-500 tw-pl-1 tw-pt-1"
-      >
+      <textarea v-model="form.description" placeholder="Digite a descrição da campanha..." rows="4"
+        class="tw-w-full tw-p-2 tw-border tw-border-gray-300 tw-rounded"></textarea>
+      <small v-if="!form.description && submitted" class="tw-text-red-500 tw-pl-1 tw-pt-1">
         Descrição é obrigatória
       </small>
     </div>
 
-    <Input
-      label="Data de Início"
-      v-model="form.startTime"
-      type="datetime-local"
-      class="tw-mx-6 tw-mb-4"
-      :validation="validateRequired"
-      message-error="Data de início é obrigatória"
-    />
+    <Input label="Data de Início" v-model="form.startTime" type="datetime-local" class="tw-mx-6 tw-mb-4"
+      :validation="validateRequired" message-error="Data de início é obrigatória" />
 
-    <Input
-      label="Data de Término"
-      v-model="form.endTime"
-      type="datetime-local"
-      class="tw-mx-6 tw-mb-4"
-      :validation="validateEndDate"
-      message-error="Data de término deve ser posterior à data de início"
-    />
-<!--
+    <Input label="Data de Término" v-model="form.endTime" type="datetime-local" class="tw-mx-6 tw-mb-4"
+      :validation="validateEndDate" message-error="Data de término deve ser posterior à data de início" />
+    <!--
     <div class="tw-mx-6 tw-mb-4">
       <label class="tw-pl-1">Locais</label>
       <div
@@ -81,13 +55,9 @@
       </small>
     </div>
     -->
-    
+
     <div class="tw-flex tw-justify-center tw-gap-4 tw-mt-6">
-      <Button
-        type="button"
-        @click="cancel"
-        class="tw-bg-gray-500 tw-text-white"
-      >
+      <Button type="button" @click="cancel" class="tw-bg-gray-500 tw-text-white">
         Cancelar
       </Button>
 

@@ -46,10 +46,7 @@
       -->
 
       <div v-if="isAdmin" class="tw-flex tw-justify-end tw-gap-4 tw-mt-6">
-        <Button
-          @click="navigateTo(`/campaigns/${campaign.id}/edit`)"
-          class="tw-bg-yellow-500 tw-text-white"
-        >
+        <Button @click="navigateTo(`/campaigns/${campaign.id}/edit`)" class="tw-bg-yellow-500 tw-text-white">
           Editar
         </Button>
 
@@ -76,15 +73,13 @@ const loading = ref(true);
 
 const isAdmin = computed(() => $userStore.is_admin);
 
-onMounted(async () => {
-  try {
-    campaign.value = await CampaignService.getCampaignById(props.id);
-  } catch (error) {
-    console.error(`Erro ao carregar campanha ${props.id}:`, error);
-  } finally {
-    loading.value = false;
-  }
-});
+try {
+  campaign.value = await CampaignService.getCampaignById(props.id);
+} catch (error) {
+  console.error(`Erro ao carregar campanha ${props.id}:`, error);
+} finally {
+  loading.value = false;
+}
 
 const confirmDelete = async () => {
   if (confirm("Tem certeza que deseja excluir esta campanha?")) {
