@@ -98,7 +98,7 @@ try {
 .campaign-card{
   min-width: 85vw;
   max-width: 85vw;
-  background-color: #CCD2FF;
+  background-color: #dfe6ec;
   @media (min-width: 768px) and (orientation: landscape) {
     min-width: 70vw;
     max-width: 70vw;

@@ -18,7 +18,7 @@ form {
   min-width: 85vw;
   max-width: 85vw;
   padding: 2em 1em;
-  background-color: #CCD2FF;
+  background-color:#dfe6ec;
   border-radius: 32px;
 
   @media (min-width: 768px) and (orientation: landscape) {
