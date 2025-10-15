@@ -4,27 +4,24 @@
       <h2>Campanhas ativas</h2>
     </div>
     <div class="campaign-list">
-    <div v-if="loading" class="tw-text-center tw-py-4">
-      Carregando campanhas...
-    </div>
+      <div v-if="loading" class="tw-text-center tw-py-4">
+        Carregando campanhas...
+      </div>
 
-    <div v-else-if="campaigns.length === 0" class="tw-text-center tw-py-4">
-      Não há nenhuma campanha ativa no momento.
-    </div>
+      <div v-else-if="campaigns.length === 0" class="tw-text-center tw-py-4">
+        Não há nenhuma campanha ativa no momento.
+      </div>
 
-    <div v-else class="tw-grid tw-gap-4">
-      <div
-        v-for="campaign in campaigns"
-        :key="campaign.id"
-        class="campaign-card tw-mx-auto tw-rounded-xl tw-p-4 tw-cursor-pointer"
-        @click="navigateTo(`/campaigns/${campaign.id}`)"
-      >
-        <h3 class="tw-text-lg tw-font-semibold">{{ campaign.name }}</h3>
-        <p class="tw-text-sm tw-text-gray-600">
-          {{ formatDate(campaign.startTime) }} até
-          {{ formatDate(campaign.endTime) }}
-        </p>
-        <!--
+      <div v-else class="tw-grid tw-gap-4">
+        <div v-for="campaign in campaigns" :key="campaign.id"
+          class="campaign-card tw-mx-auto tw-rounded-xl tw-p-4 tw-cursor-pointer"
+          @click="navigateTo(`/campaigns/${campaign.id}`)">
+          <h3 class="tw-text-lg tw-font-semibold">{{ campaign.name }}</h3>
+          <p class="tw-text-sm tw-text-gray-600">
+            {{ formatDate(campaign.startTime) }} até
+            {{ formatDate(campaign.endTime) }}
+          </p>
+          <!--
         <div class="tw-mt-2">
           <p class="tw-text-sm tw-font-medium">Locais:</p>
           <ul class="tw-pl-4">
@@ -38,12 +35,12 @@
           </ul>
         </div>
         -->
+        </div>
+      </div>
+
+      <div v-if="$userStore.is_admin" class="tw-mt-6 tw-text-center">
       </div>
     </div>
-
-    <div v-if="$userStore.is_admin" class="tw-mt-6 tw-text-center">
-    </div>
-  </div>
   </div>
 </template>
 
@@ -95,13 +92,14 @@ try {
 }
 </script>
 <style lang="scss" scoped>
-.campaign-card{
+.campaign-card {
   min-width: 85vw;
   max-width: 85vw;
-  background-color: #CCD2FF;
+  background-color: #dfe6ec;
+
   @media (min-width: 768px) and (orientation: landscape) {
     min-width: 70vw;
     max-width: 70vw;
-}
+  }
 }
 </style>

@@ -63,7 +63,5 @@ import { LocationService } from '~/services/'
 const route = useRoute();
 const location = ref<any>(null);
 
-onMounted(async () => {
-  location.value = await LocationService.getLocationDetails(Number(route.params.id));
-});
+location.value = await LocationService.getLocationDetails(Number(route.params.id));
 </script>

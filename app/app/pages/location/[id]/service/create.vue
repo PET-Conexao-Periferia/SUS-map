@@ -70,7 +70,7 @@ interface Service {
 const locationId = Number(route.params.id)
 // const services = ref([])
 
-const services = ref<Service[]>([])
+const services = ref<Service[]>(await ServiceService.getAll() ?? [])
 const selectedServices = ref<number[]>([])
 
 const selectedServiceObjects = computed(() => {
@@ -81,11 +81,6 @@ const selectedServiceObjects = computed(() => {
 function removeService(id: number) {
   selectedServices.value = selectedServices.value.filter(s => s !== id)
 }
-
-
-onMounted(async () => {
-  services.value = await ServiceService.getAll()
-})
 
 async function submit() {
   const response = await LocationService.attachServices(locationId, selectedServices.value)
