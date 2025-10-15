@@ -1,57 +1,30 @@
 <template>
-  <BackButton cor="aliceblue"/>
+  <BackButton cor="aliceblue" />
   <Form @submit.prevent="submit" class="tw-mt-24">
     <Logo />
     <p class="tw-px-3 tw-mt-0 tw-mb-9">
       Faça seu cadastro para receber notificações sobre campanhas de vacinação!
     </p>
 
-    <Input
-      label="Nome"
-      v-model="user.name"
-      name="user.name"
-      type="text"
-      placeholder="Digite seu nome..."
-      class="tw-mx-6 tw-mb-4"
-      :error="logErrors.name"
-    >
-      <ErrorMessage message-error="Nome inválido" />
+    <Input label="Nome" v-model="user.name" name="user.name" type="text" placeholder="Digite seu nome..."
+      class="tw-mx-6 tw-mb-4" :error="logErrors.name">
+    <ErrorMessage message-error="Nome inválido" />
     </Input>
 
-    <Input
-      label="E-mail"
-      v-model="user.email"
-      name="user.email"
-      type="email"
-      placeholder="Digite seu e-mail..."
-      class="tw-mx-6 tw-mb-4"
-      :error="logErrors.email"
-    >
-      <ErrorMessage message-error="Email inválido" />
+    <Input label="E-mail" v-model="user.email" name="user.email" type="email" placeholder="Digite seu e-mail..."
+      class="tw-mx-6 tw-mb-4" :error="logErrors.email">
+    <ErrorMessage message-error="Email inválido" />
     </Input>
 
-    <Input
-      label="Senha"
-      v-model="user.password"
-      name="user.password"
-      type="password"
-      placeholder="Digite sua senha..."
-      class="tw-mx-6 tw-mb-4"
-      :error="logErrors.password"
-    >
-      <ErrorMessage message-error="Senha inválida" />
+    <Input label="Senha" v-model="user.password" name="user.password" type="password" placeholder="Digite sua senha..."
+      class="tw-mx-6 tw-mb-4" :error="logErrors.password">
+    <ErrorMessage message-error="Senha inválida" />
     </Input>
 
-    <Input
-      label="Confirmar Senha"
-      v-model="user.password_confirmation"
-      name="user.password_confirmation"
-      type="password"
-      placeholder="Confirme sua senha..."
-      class="tw-mx-6 tw-mb-4"
-      :error="logErrors.password_confirmation"
-    >
-      <ErrorMessage message-error="Senha não corresponde" />
+    <Input label="Confirmar Senha" v-model="user.password_confirmation" name="user.password_confirmation"
+      type="password" placeholder="Confirme sua senha..." class="tw-mx-6 tw-mb-4"
+      :error="logErrors.password_confirmation">
+    <ErrorMessage message-error="Senha não corresponde" />
     </Input>
 
     <Button type="submit" class="tw-block tw-mx-auto tw-mt-5">

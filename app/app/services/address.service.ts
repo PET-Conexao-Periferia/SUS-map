@@ -1,7 +1,7 @@
-import type { AddressType } from "~/types/Address"
+import type { AddressType } from "~/types/"
 
-export default class AddressService {
-  static async create(descriptionId:number, address: AddressType) {
+export default new class AddressService {
+  async create(descriptionId:number, address: AddressType) {
     const { $axios } = useNuxtApp()
     const id = Number(descriptionId)
     if (!Number.isInteger(id) || id <= 0) {

@@ -91,7 +91,6 @@
 
 <script setup lang="ts">
 import { AuthService } from "~/services/";
-import { useRoute, navigateTo } from '#app'
 
 const { $userStore } = useNuxtApp();
 const showMore = ref(false);

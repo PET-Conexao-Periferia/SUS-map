@@ -1,8 +1,7 @@
-import type { DescriptionType } from "~/types/Description";
-import type { LocationType } from "~/types/Location";
+import type { DescriptionType, LocationType } from "~/types/";
 
-export default class DescriptionService {
-  static async create(locationId: number , description: DescriptionType) {
+export default new class DescriptionService {
+  async create(locationId: number, description: DescriptionType) {
     const { $axios } = useNuxtApp()
     const id = Number(locationId)
 
@@ -12,7 +11,6 @@ export default class DescriptionService {
     }
 
     try {
-      
       const { data } = await $axios.post(`/api/descriptions/location/${id}`, description)
       return data
     } catch (e) {

@@ -4,15 +4,10 @@
     <div v-if="location" class="tw-space-y-4">
       <!-- Foto -->
       <div v-if="location.photo" class="tw-flex tw-justify-center">
-        <NuxtImg
-          :src="location.photo.startsWith('http') 
-          ? location.photo 
-          : `http://localhost:8000/storage/${location.photo}`"
-          alt="Foto do local"
-          width="300"
-          height="200"
-          class="tw-rounded-lg tw-shadow-md"
-        />
+        <NuxtImg :src="location.photo.startsWith('http')
+          ? location.photo
+          : `http://localhost:8000/storage/${location.photo}`" alt="Foto do local" width="300" height="200"
+          class="tw-rounded-lg tw-shadow-md" />
       </div>
 
       <!-- Descrição -->
@@ -63,8 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-import LocationService from '~/services/LocationService'
+import { LocationService } from '~/services/'
 
 const route = useRoute();
 const location = ref<any>(null);

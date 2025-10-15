@@ -1,17 +1,18 @@
 <template>
-<BackButton/>
-<Form @submit.prevent="submit">
-  <h2 class="tw-text-center">Cadastrar Serviços</h2>
-  <p>Cadastre um novo serviço oferecido por uma das Unidades SUS Cadastradas!</p>
+  <BackButton />
+  <Form @submit.prevent="submit">
+    <h2 class="tw-text-center">Cadastrar Serviços</h2>
+    <p>Cadastre um novo serviço oferecido por uma das Unidades SUS Cadastradas!</p>
 
-    <Input label="Nome" v-model="form.name" name="name" type="text" placeholder="Digite o nome do serviço" class="tw-mx-6 tw-mb-4" />
+    <Input label="Nome" v-model="form.name" name="name" type="text" placeholder="Digite o nome do serviço"
+      class="tw-mx-6 tw-mb-4" />
 
     <Button class="tw-block tw-mx-auto tw-mt-8" type="submit">Cadastrar</Button>
-</Form>
+  </Form>
 </template>
 
 <script setup lang="ts">
-import ServiceService from '~/services/ServiceService'
+import { ServiceService } from '~/services/'
 
 const form = ref({
   name: '',
@@ -34,6 +35,4 @@ async function submit() {
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

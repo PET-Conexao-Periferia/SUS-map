@@ -1,7 +1,7 @@
 import type { LocationType } from "~/types/";
 
 export default defineStore("location", () => {
-  const current = ref<LocationType>({
+  const current = ref<Partial<LocationType>>({
     latitude: 0,
     longitude: 0,
   });
