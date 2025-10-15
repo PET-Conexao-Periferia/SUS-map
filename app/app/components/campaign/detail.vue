@@ -1,5 +1,5 @@
 <template>
-  <Form tw-mb-2>
+  <AppContentCard tw-mb-2>
     <div v-if="loading" class="tw-text-center tw-py-4">
       Carregando detalhes da campanha...
     </div>
@@ -9,10 +9,9 @@
     </div>
 
     <div v-else>
-      <h2 class="tw-text-center tw-mb-8">{{ campaign.name }}</h2>
-
+      <h1 class="tw-text-center tw-mb-8">{{ campaign.name }}</h1>
       <div class="tw-mb-4">
-        <h3 class="tw-text-lg tw-font-semibold">Período:</h3>
+        <h2>Período:</h2>
         <p>
           {{ formatDate(campaign.startTime) }} até
           {{ formatDate(campaign.endTime) }}
@@ -20,7 +19,7 @@
       </div>
 
       <div class="tw-mb-4">
-        <h3 class="tw-text-lg tw-font-semibold">Descrição:</h3>
+        <h2>Descrição:</h2>
         <p class="tw-whitespace-pre-line">{{ campaign.description }}</p>
       </div>
       <!--
@@ -58,7 +57,7 @@
         </Button>
       </div>
     </div>
-  </Form>
+  </AppContentCard>
 </template>
 
 <script setup lang="ts">

@@ -1,18 +1,20 @@
 <template>
-  <BackButton/>
-  <Form @submit.prevent="submit">
-    <div class="flex justify-center w-full">
-      <ProgressBar :steps="steps" :currentStep="currentStep"/>
-    </div>
-
-    <div class="tw-absolute tw-top-4 tw-right-4">
-          <button
+ <LayoutHeader>
+      <p class="tw-text-center">Adicionar local</p>
+       <div class="tw-ml-auto">
+        <button
             @click="showPopup = true"
             type="button"
-            class="tw-bg-blue-300 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-400 tw-transition"
+            class="tw-bg-blue-700 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-500 tw-transition"
           >
             ?
       </button>
+    </div>
+    </LayoutHeader>
+
+  <Form @submit.prevent="submit">
+    <div class="flex justify-center w-full">
+      <ProgressBar :steps="steps" :currentStep="currentStep"/>
     </div>
 
     <!-- Popup de ajuda -->
@@ -44,7 +46,15 @@
     placeholder="(00) 0 0000-0000"
     />
 
-    <Button class="tw-block tw-mx-auto tw-mt-8" type="submit">Próximo</Button>
+    <Button class="tw-block tw-mx-auto tw-mt-12" type="submit"
+    >
+    Próximo
+    <img 
+    src="/assets/img/arrow_right.svg"
+    height="20"
+    width="20"
+    />
+    </Button>
   </Form>
 </template>
 

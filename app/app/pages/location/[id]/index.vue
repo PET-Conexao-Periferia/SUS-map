@@ -1,5 +1,7 @@
 <template>
-  <BackButton style="position: fixed;"/>
+  <LayoutHeader>
+    <p class="tw-text-center">Detalhes do local</p>
+  </LayoutHeader>
     <div v-if="location">
       <!-- Foto -->
       <div v-if="location.photo" class="tw-flex tw-justify-center" style=" display: grid; grid-auto-rows: auto">
@@ -16,7 +18,7 @@
       </h1>
         </div>
       </div>
-      <AppContentCard>
+      <AppContentCard class="tw-mb-32">
            <!-- Endereço -->
       <div v-if="location.description?.address">
         <div class="title-container">

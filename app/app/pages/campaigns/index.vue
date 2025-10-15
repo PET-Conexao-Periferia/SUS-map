@@ -1,5 +1,9 @@
 <template>
-  <BackButton />
+  <LayoutHeader>
+      <div class="tw-text-center">
+        <p>Campanhas</p>
+      </div>
+  </LayoutHeader>
       <CampaignList />
 </template>
 

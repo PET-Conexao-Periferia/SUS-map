@@ -20,6 +20,11 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .button-default {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
   background-color: #003087;
   color: #FFFFFF;
   border: none;

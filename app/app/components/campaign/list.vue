@@ -1,25 +1,25 @@
 <template>
   <div class="tw-mx-auto">
-    <div class="tw-text-center">
+    <div class="tw-ml-4 tw-mb-6">
       <h2>Campanhas ativas</h2>
     </div>
     <div class="campaign-list">
-    <div v-if="loading" class="tw-text-center tw-py-4">
+    <AppContentCard v-if="loading" class="tw-text-center tw-py-4">
       Carregando campanhas...
-    </div>
+    </AppContentCard>
 
-    <div v-else-if="campaigns.length === 0" class="tw-text-center tw-py-4">
+    <AppContentCard v-else-if="campaigns.length === 0" class="tw-text-center tw-py-4">
       Não há nenhuma campanha ativa no momento.
-    </div>
+    </AppContentCard>
 
     <div v-else class="tw-grid tw-gap-4">
-      <AppCard
+      <AppContentCard
         v-for="campaign in campaigns"
         :key="campaign.id"
         @click="navigateTo(`/campaigns/${campaign.id}`)"
       >
-        <h3 class="tw-text-lg tw-font-semibold">{{ campaign.name }}</h3>
-        <p class="tw-text-sm tw-text-gray-600">
+        <h2>{{ campaign.name }}</h2>
+        <p>
           {{ formatDate(campaign.startTime) }} até
           {{ formatDate(campaign.endTime) }}
         </p>
@@ -37,7 +37,7 @@
           </ul>
         </div>
         -->
-      </AppCard>
+      </AppContentCard>
     </div>
 
     <div v-if="$userStore.is_admin" class="tw-mt-6 tw-text-center">

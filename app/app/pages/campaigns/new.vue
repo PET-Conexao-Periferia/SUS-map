@@ -1,8 +1,11 @@
 <template>
-  <BackButton />
-  <div class="tw-container tw-mx-auto tw-py-8">
+  <LayoutHeader>
+      <p class="tw-text-center">
+      {{ isEditing ? "Editar Campanha" : "Nova Campanha" }}
+      </p>
+    </LayoutHeader>
     <CampaignForm />
-  </div>
+
 </template>
 
 <script setup lang="ts">

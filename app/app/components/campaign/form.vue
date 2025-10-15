@@ -1,11 +1,7 @@
 <template>
   <Form @submit.prevent="saveCampaign">
-    <h2 class="tw-text-xl tw-font-bold tw-mb-6 tw-text-center">
-      {{ isEditing ? "Editar Campanha" : "Nova Campanha" }}
-    </h2>
-
     <Input
-      label="Nome da Campanha"
+      label="Titulo da campanha:"
       v-model="form.name"
       type="text"
       placeholder="Digite o nome da campanha..."
@@ -14,7 +10,7 @@
       message-error="Nome é obrigatório"
     />
 
-    <div class="tw-mx-6 tw-mb-4">
+    <div class= "tw-ml-2 tw-mr-6 tw-mb-4" style="box-sizing: border-box;">
       <label class="tw-pl-1">Descrição</label>
       <textarea
         v-model="form.description"

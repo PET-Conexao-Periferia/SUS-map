@@ -1,16 +1,18 @@
 <template>
-  <BackButton/>
-  <Form @submit.prevent="submit">
-     <ProgressBar :steps="steps" :currentStep="currentStep" />
-      <div class="tw-absolute tw-top-4 tw-right-4">
-          <button
+<LayoutHeader>
+      <p class="tw-text-center">Adicionar local</p>
+       <div class="tw-ml-auto">
+        <button
             @click="showPopup = true"
             type="button"
-            class="tw-bg-blue-300 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-400 tw-transition"
+            class="tw-bg-blue-700 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-500 tw-transition"
           >
             ?
       </button>
-      </div>
+    </div>
+    </LayoutHeader>
+  <Form @submit.prevent="submit">
+     <ProgressBar :steps="steps" :currentStep="currentStep" />
 
     <!-- Popup de ajuda -->
     <Popup :isVisible="showPopup" @close="showPopup = false">
@@ -33,7 +35,15 @@
     <Input label="CEP:" v-model="form.cep" name="cep" placeholder="Digite o cep  " v-mask="'#####-###'" class="tw-mx-6 tw-mb-4" />
     <Input label="Ponto de referência:" v-model="form.reference" placeholder="Coloque um ponto de referência" name="reference" class="tw-mx-6 tw-mb-4" />
 
-    <Button class="tw-block tw-mx-auto tw-mt-8" type="submit">Proximo</Button>
+    <Button class="tw-block tw-mx-auto tw-mt-12" type="submit"
+    >
+    Próximo
+    <img 
+    src="/assets/img/arrow_right.svg"
+    height="20"
+    width="20"
+    />
+    </Button>
   </Form>
 </template>
 

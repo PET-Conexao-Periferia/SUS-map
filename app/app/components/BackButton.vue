@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-m-8">
+  <div>
     <button variant="navigation" @click="back()" :style="{'--button-color': cor}">
       <img src="~/assets/img/arrow_left.svg" width="30" height="30" />
     </button>

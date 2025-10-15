@@ -1,17 +1,18 @@
 <template>
-  <BackButton/>
-<Form @submit.prevent="submit">
-     <ProgressBar :steps="steps" :currentStep="currentStep" />
-
-      <div class="tw-absolute tw-top-4 tw-right-4">
-          <button
+<LayoutHeader>
+      <p class="tw-text-center">Adicionar local</p>
+       <div class="tw-ml-auto">
+        <button
             @click="showPopup = true"
             type="button"
-            class="tw-bg-blue-300 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-400 tw-transition"
+            class="tw-bg-blue-700 tw-text-white tw-rounded-full tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-font-bold tw-shadow-md hover:tw-bg-blue-500 tw-transition"
           >
             ?
       </button>
-      </div>
+    </div>
+    </LayoutHeader>
+<Form @submit.prevent="submit">
+     <ProgressBar :steps="steps" :currentStep="currentStep" />
 
     <!-- Popup de ajuda -->
     <Popup :isVisible="showPopup" @close="showPopup = false">

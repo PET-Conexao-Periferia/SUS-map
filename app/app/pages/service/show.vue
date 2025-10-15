@@ -1,9 +1,16 @@
 <template>
-  <!-- Botão de voltar -->
-    <BackButton />
+  <LayoutHeader>
+    <p>Serviços</p>
+  </LayoutHeader>
   <Form>
-        <h2 class="tw-text-center">Serviços Cadastrados</h2>
+        <h2>Serviços Cadastrados</h2>
       <!-- Lista de serviços -->
+          <Button
+          @click="navigateTo('/service/create')"
+          class="tw-mx-auto"
+          >
+          Adicionar novo serviço
+        </Button>
       <ul v-if="services.length" class="tw-space-y-2">
         <li
           v-for="service in services"
@@ -17,12 +24,6 @@
       <p v-else class="tw-text-center tw-text-gray-500 tw-italic">
         Nenhum serviço cadastrado ainda.
       </p>
-      <Button
-          @click="navigateTo('/service/create')"
-          class="tw-mx-auto"
-          >
-          Adicionar novo serviço
-        </Button>
   </Form>
 </template>
 

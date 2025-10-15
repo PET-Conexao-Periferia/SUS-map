@@ -1,11 +1,8 @@
 <template>
-  <BackButton />
-  <div class="tw-container tw-mx-auto tw-py-8">
+  <LayoutHeader>
+    <p>Detalhes da campanha</p>
+  </LayoutHeader>
     <CampaignDetail :id="Number(id)" />
-
-    <div class="tw-text-center tw-mt-8">
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">

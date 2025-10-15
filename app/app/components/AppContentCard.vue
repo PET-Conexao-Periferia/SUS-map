@@ -1,5 +1,5 @@
 <template> 
-    <div v-bind="$attrs" class="tw-mx-auto tw-mb-32">
+    <div v-bind="$attrs" class="tw-mx-auto">
         <slot/>
     </div>
 </template>
