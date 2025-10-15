@@ -13,10 +13,9 @@
     </div>
 
     <div v-else class="tw-grid tw-gap-4">
-      <div
+      <AppCard
         v-for="campaign in campaigns"
         :key="campaign.id"
-        class="campaign-card tw-mx-auto tw-rounded-xl tw-p-4 tw-cursor-pointer"
         @click="navigateTo(`/campaigns/${campaign.id}`)"
       >
         <h3 class="tw-text-lg tw-font-semibold">{{ campaign.name }}</h3>
@@ -38,7 +37,7 @@
           </ul>
         </div>
         -->
-      </div>
+      </AppCard>
     </div>
 
     <div v-if="$userStore.is_admin" class="tw-mt-6 tw-text-center">
