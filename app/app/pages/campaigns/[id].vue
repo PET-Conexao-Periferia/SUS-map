@@ -4,12 +4,6 @@
     <CampaignDetail :id="Number(id)" />
 
     <div class="tw-text-center tw-mt-8">
-      <Button
-        @click="navigateTo('/campaigns')"
-        class="tw-bg-blue-500 tw-text-white"
-      >
-        Voltar para a lista
-      </Button>
     </div>
   </div>
 </template>

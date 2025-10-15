@@ -59,11 +59,11 @@ class CampaignService
         ]);
 
         // Atualiza os locais associados
-        if (isset($data['locationIds'])) {
-            $campaign->locations()->sync($data['locationIds']);
-        }
+        //if (isset($data['locationIds'])) {
+         //   $campaign->locations()->sync($data['locationIds']);
+       // }
 
-        return $campaign->load('locations');
+      //  return $campaign->load('locations');
     }
 
     /**
@@ -84,8 +84,8 @@ class CampaignService
             'description' => 'required|string',
             'startTime' => 'required|date',
             'endTime' => 'required|date|after_or_equal:startTime',
-            'locationIds' => 'required|array',
-            'locationIds.*' => 'exists:locations,id'
+            //'locationIds' => 'required|array',
+            //'locationIds.*' => 'exists:locations,id'
         ]);
     }
 }

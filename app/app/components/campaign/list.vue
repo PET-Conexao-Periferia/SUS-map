@@ -16,7 +16,7 @@
       <div
         v-for="campaign in campaigns"
         :key="campaign.id"
-        class="campaign-card tw-bg-white tw-rounded-lg tw-shadow-md tw-p-4 tw-cursor-pointer"
+        class="campaign-card tw-mx-auto tw-rounded-xl tw-p-4 tw-cursor-pointer"
         @click="navigateTo(`/campaigns/${campaign.id}`)"
       >
         <h3 class="tw-text-lg tw-font-semibold">{{ campaign.name }}</h3>
@@ -24,6 +24,7 @@
           {{ formatDate(campaign.startTime) }} até
           {{ formatDate(campaign.endTime) }}
         </p>
+        <!--
         <div class="tw-mt-2">
           <p class="tw-text-sm tw-font-medium">Locais:</p>
           <ul class="tw-pl-4">
@@ -36,6 +37,7 @@
             </li>
           </ul>
         </div>
+        -->
       </div>
     </div>
 
@@ -92,3 +94,14 @@ try {
   loading.value = false;
 }
 </script>
+<style lang="scss" scoped>
+.campaign-card{
+  min-width: 85vw;
+  max-width: 85vw;
+  background-color: #CCD2FF;
+  @media (min-width: 768px) and (orientation: landscape) {
+    min-width: 70vw;
+    max-width: 70vw;
+}
+}
+</style>

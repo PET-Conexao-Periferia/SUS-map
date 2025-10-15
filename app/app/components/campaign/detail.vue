@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="campaign-detail tw-max-w-3xl tw-mx-auto tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6"
-  >
+  <Form tw-mb-2>
     <div v-if="loading" class="tw-text-center tw-py-4">
       Carregando detalhes da campanha...
     </div>
@@ -11,10 +9,10 @@
     </div>
 
     <div v-else>
-      <h2 class="tw-text-2xl tw-font-bold tw-mb-4">{{ campaign.name }}</h2>
+      <h2 class="tw-text-center tw-mb-8">{{ campaign.name }}</h2>
 
       <div class="tw-mb-4">
-        <h3 class="tw-text-lg tw-font-semibold">Período</h3>
+        <h3 class="tw-text-lg tw-font-semibold">Período:</h3>
         <p>
           {{ formatDate(campaign.startTime) }} até
           {{ formatDate(campaign.endTime) }}
@@ -22,11 +20,11 @@
       </div>
 
       <div class="tw-mb-4">
-        <h3 class="tw-text-lg tw-font-semibold">Descrição</h3>
+        <h3 class="tw-text-lg tw-font-semibold">Descrição:</h3>
         <p class="tw-whitespace-pre-line">{{ campaign.description }}</p>
       </div>
-
-      <div class="tw-mb-4">
+      <!--
+        <div class="tw-mb-4">
         <h3 class="tw-text-lg tw-font-semibold">Locais</h3>
         <ul class="tw-pl-4">
           <li
@@ -45,6 +43,7 @@
           </li>
         </ul>
       </div>
+      -->
 
       <div v-if="isAdmin" class="tw-flex tw-justify-end tw-gap-4 tw-mt-6">
         <Button
@@ -59,7 +58,7 @@
         </Button>
       </div>
     </div>
-  </div>
+  </Form>
 </template>
 
 <script setup lang="ts">

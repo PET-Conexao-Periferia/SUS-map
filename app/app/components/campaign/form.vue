@@ -1,5 +1,5 @@
 <template>
-  <Form @submit.prevent="saveCampaign" class="tw-mx-4 tw-my-8">
+  <Form @submit.prevent="saveCampaign">
     <h2 class="tw-text-xl tw-font-bold tw-mb-6 tw-text-center">
       {{ isEditing ? "Editar Campanha" : "Nova Campanha" }}
     </h2>
@@ -47,7 +47,7 @@
       :validation="validateEndDate"
       message-error="Data de término deve ser posterior à data de início"
     />
-
+<!--
     <div class="tw-mx-6 tw-mb-4">
       <label class="tw-pl-1">Locais</label>
       <div
@@ -80,7 +80,8 @@
         Selecione pelo menos um local
       </small>
     </div>
-
+    -->
+    
     <div class="tw-flex tw-justify-center tw-gap-4 tw-mt-6">
       <Button
         type="button"
@@ -111,7 +112,7 @@ const props = defineProps({
 });
 
 const isEditing = computed(() => !!props.campaignId);
-const locations = ref([]);
+//const locations = ref([]);
 const submitted = ref(false);
 
 const form = ref({
@@ -119,14 +120,15 @@ const form = ref({
   description: "",
   startTime: "",
   endTime: "",
-  locationIds: [] as number[],
+  //locationIds: [] as number[],
 });
-
+/*
 try {
   locations.value = await CampaignService.getLocations();
 } catch (error) {
   console.error("Erro ao carregar locais:", error);
 }
+*/
 
 // Se estiver editando, carregar dados da campanha
 if (isEditing.value) {
@@ -139,7 +141,7 @@ if (isEditing.value) {
       form.value.description = campaign.description;
       form.value.startTime = formatDateForInput(campaign.startTime);
       form.value.endTime = formatDateForInput(campaign.endTime);
-      form.value.locationIds = campaign.locations.map((loc) => loc.id);
+      //form.value.locationIds = campaign.locations.map((loc) => loc.id);
     }
   } catch (error) {
     console.error("Erro ao carregar campanha para edição:", error);
@@ -153,7 +155,7 @@ async function saveCampaign() {
     !form.value.description ||
     !form.value.startTime ||
     !form.value.endTime ||
-    !form.value.locationIds.length ||
+    //!form.value.locationIds.length ||
     !validateEndDate(form.value.endTime, form.value.startTime)
   ) {
     return;
