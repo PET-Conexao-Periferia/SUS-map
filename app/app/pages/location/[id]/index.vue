@@ -1,7 +1,6 @@
 <template>
-  <div class="tw-p-6 tw-bg-[#CCD2FF] tw-rounded-lg tw-shadow-md tw-m-6">
-    <BackButton />
-
+  <BackButton />
+  <Form>
     <div v-if="location" class="tw-space-y-4">
       <!-- Foto -->
       <div v-if="location.photo" class="tw-flex tw-justify-center">
@@ -17,21 +16,23 @@
       </div>
 
       <!-- Descrição -->
+      <h2 class="tw-text-center">
+        {{ location.description?.name }}
+      </h2>
       <div>
-        <h2 class="tw-text-xl tw-font-semibold tw-text-gray-800">
-          {{ location.description?.name }}
-        </h2>
-        <p class="tw-text-gray-600">Contato: {{ location.description?.contact }}</p>
+        <h3>Contato:</h3>
+        <p class="tw-text-gray-600"> {{ location.description?.contact }}</p>
       </div>
 
       <!-- Endereço -->
       <div v-if="location.description?.address">
-        <h3 class="tw-font-semibold tw-mt-4">Endereço</h3>
+        <h3 class="tw-font-semibold tw-mt-4">Endereço:</h3>
         <p>
           {{ location.description.address.street }}, nº {{ location.description.address.number }},
           {{ location.description.address.district }} - CEP: {{ location.description.address.cep }}
         </p>
-        <p>Referência: {{ location.description.address.reference }}</p>
+        <h3 class="tw-font-semibold tw-mt-4">Referência:</h3>
+        <p>{{ location.description.address.reference }}</p>
       </div>
 
       <!-- Serviços -->
@@ -58,7 +59,7 @@
     <div v-else class="tw-text-center tw-text-gray-600">
       Carregando informações...
     </div>
-  </div>
+  </Form>
 </template>
 
 <script setup lang="ts">

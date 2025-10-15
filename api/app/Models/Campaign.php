@@ -23,7 +23,7 @@ class Campaign extends Model
             Location::class,
             'locations_campaigns',  // nome correto da tabela pivot
             'campaigns_id',         // nome da coluna que referencia Campaign
-            'location_id'           // nome da coluna que referencia Location
+            //'location_id'           // nome da coluna que referencia Location
         );
     }
     
